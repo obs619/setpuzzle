@@ -32,5 +32,10 @@ public class Picture {
 	public void setAnimalColor(String animalColor) {
 		this.animalColor = animalColor;
 	}
-
+	
+	@Override
+	public String toString() {
+		return getAnimalColor() + " " + getAnimal() + " inside " + getBackground();
+	}
+	
 }

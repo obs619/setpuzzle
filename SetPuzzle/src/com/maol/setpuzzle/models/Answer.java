@@ -10,6 +10,10 @@ public class Answer {
 		answer[1] = b;
 		answer[2] = c;
 	}
+	
+	public Answer(int[] answer){
+		this.answer = answer;
+	}
 
 	public int[] getAnswer() {
 		return answer;
