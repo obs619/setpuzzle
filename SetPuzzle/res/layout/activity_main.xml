@@ -9,8 +9,70 @@
     tools:context="com.maol.setpuzzle.activities.MainActivity" >
 
     <TextView
+        android:id="@+id/txtScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="Score: " />
+    
+    <TextView
+        android:id="@+id/txtTimer"
+        android:layout_below="@+id/txtScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Timer: " />
+    
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtTimer" >
+
+        <TableRow 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        	<Button 
+        	    android:layout_width="wrap_content" 
+        	    android:layout_height="wrap_content" />
+        	<Button 
+        	    android:layout_width="wrap_content" 
+        	    android:layout_height="wrap_content" 
+        	    android:text="But2 "/> 
+        	<Button 
+        	    android:layout_width="wrap_content" 
+        	    android:layout_height="wrap_content" 
+        	    android:text="But3 "/>     
+        </TableRow>
+        <TableRow 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        	<Button 
+        	    android:layout_width="wrap_content" 
+        	    android:layout_height="wrap_content" 
+        	    android:text="But4 "/>
+        	<Button 
+        	    android:layout_width="wrap_content" 
+        	    android:layout_height="wrap_content" 
+        	    android:text="But5 "/> 
+        	<Button 
+        	    android:layout_width="wrap_content" 
+        	    android:layout_height="wrap_content" 
+        	    android:text="But6 "/>     
+        </TableRow><TableRow 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        	<Button 
+        	    android:layout_width="wrap_content" 
+        	    android:layout_height="wrap_content" 
+        	    android:text="But7 "/>
+        	<Button 
+        	    android:layout_width="wrap_content" 
+        	    android:layout_height="wrap_content" 
+        	    android:text="But8 "/> 
+        	<Button 
+        	    android:layout_width="wrap_content" 
+        	    android:layout_height="wrap_content" 
+        	    android:text="But9 "/>     
+        </TableRow>
+    </TableLayout>
 
 </RelativeLayout>
