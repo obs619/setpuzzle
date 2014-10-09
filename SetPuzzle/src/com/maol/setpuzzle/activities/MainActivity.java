@@ -5,7 +5,11 @@ import java.util.List;
 import java.util.Random;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
@@ -72,6 +76,9 @@ public class MainActivity extends ActionBarActivity {
 	
 	int score = 0;
 	
+	private long totaltime = 60000;
+	CountDownTimer countDownTimer;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +105,33 @@ public class MainActivity extends ActionBarActivity {
         
         txtTotalAnswers.setText("Total Answers Left: " + ssi.getCorrectAnswers().size()); 
         
+        countDownTimer = new CountDownTimer(totaltime, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+            	totaltime = millisUntilFinished;
+                txtTimer.setText("Timer: " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+            	AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+				builder.setTitle("Result");
+			    builder.setCancelable(false);
+			    builder.setMessage("Congratulations! Score: " + score) ;
+			    builder.setPositiveButton("ok", new OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						finish();
+					}
+				});
+			
+				AlertDialog alert = builder.create();
+	            alert.show();
+            }
+         }.start();
+        
     }
+    
 
     public void clickCheat(View v) {
 		String answers = "";
