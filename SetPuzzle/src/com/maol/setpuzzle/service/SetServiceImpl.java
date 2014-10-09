@@ -75,7 +75,7 @@ public class SetServiceImpl {
 		correctAnswers = answers;
 	}
 
-	public boolean isCorrectAnswer( Answer answer) {
+	public boolean isCorrectAnswer(Answer answer) {
 		for (Answer a : correctAnswers)
 			if (a.isSame(answer)){
 				correctAnswers.remove(a);
@@ -83,4 +83,9 @@ public class SetServiceImpl {
 			}
 		return false;
 	}
+	
+	public List<Answer> getCorrectAnswers() {
+		return correctAnswers;
+	}
+	
 }

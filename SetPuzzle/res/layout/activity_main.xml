@@ -21,26 +21,34 @@
         android:layout_height="wrap_content"
         android:text="Timer: " />
     
+    <TextView
+        android:id="@+id/txtTotalAnswers"
+        android:layout_below="@+id/txtTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Answers: " />
+    
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtTimer" >
+        android:layout_below="@+id/txtTotalAnswers" >
 
         <TableRow 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         	<Button 
         	    android:layout_width="wrap_content" 
-        	    android:layout_height="wrap_content" />
+        	    android:layout_height="wrap_content" 
+        	    android:layout_margin="4dp"/>
         	<Button 
         	    android:layout_width="wrap_content" 
         	    android:layout_height="wrap_content" 
-        	    android:text="But2 "/> 
+        	    android:layout_margin="4dp"/>
         	<Button 
         	    android:layout_width="wrap_content" 
         	    android:layout_height="wrap_content" 
-        	    android:text="But3 "/>     
+        	    android:layout_margin="4dp"/> 
         </TableRow>
         <TableRow 
             android:layout_width="wrap_content"
@@ -48,15 +56,15 @@
         	<Button 
         	    android:layout_width="wrap_content" 
         	    android:layout_height="wrap_content" 
-        	    android:text="But4 "/>
+        	    android:layout_margin="4dp"/>
         	<Button 
         	    android:layout_width="wrap_content" 
         	    android:layout_height="wrap_content" 
-        	    android:text="But5 "/> 
+        	    android:layout_margin="4dp"/>
         	<Button 
         	    android:layout_width="wrap_content" 
         	    android:layout_height="wrap_content" 
-        	    android:text="But6 "/>     
+        	    android:layout_margin="4dp"/>    
         </TableRow>
         <TableRow 
             android:layout_width="wrap_content"
@@ -64,16 +72,30 @@
         	<Button 
         	    android:layout_width="wrap_content" 
         	    android:layout_height="wrap_content" 
-        	    android:text="But7 "/>
+        	    android:layout_margin="4dp"/>
         	<Button 
         	    android:layout_width="wrap_content" 
         	    android:layout_height="wrap_content" 
-        	    android:text="But8 "/> 
+        	    android:layout_margin="4dp"/>
         	<Button 
         	    android:layout_width="wrap_content" 
         	    android:layout_height="wrap_content" 
-        	    android:text="But9 "/>     
+        	    android:layout_margin="4dp"/>     
         </TableRow>
     </TableLayout>
 
+    <Button
+        android:id="@+id/btnCheat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tableLayout"
+        android:onClick="clickCheat"
+        android:text="Cheat!" />
+
+    <ListView
+        android:id="@+id/lstViewAnswersSolved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnCheat"/>
+    
 </RelativeLayout>
