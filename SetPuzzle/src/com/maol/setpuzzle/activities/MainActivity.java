@@ -203,10 +203,10 @@ public class MainActivity extends ActionBarActivity {
     	String[] parts = selectorName.split("_");
     	
     	Picture picture = new Picture();
-    	picture.setAnimal(parts[0]);
-    	picture.setAnimalColor(parts[1]);
-    	picture.setBackground(parts[2]);
-    	
+    	picture.setBackground(parts[0]);
+    	picture.setAnimal(parts[1]);
+    	picture.setAnimalColor(parts[2]);
+   
     	return picture;
     }
     
