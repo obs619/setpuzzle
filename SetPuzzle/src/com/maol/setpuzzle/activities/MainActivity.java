@@ -31,6 +31,9 @@ public class MainActivity extends ActionBarActivity {
 	int[] answers = new int[3];
 	SetServiceImpl ssi = new SetServiceImpl();
 	TextView txtTotalAnswers;
+	TextView txtScore;
+	TextView txtTimer;
+	
 	ListView listViewAnswersSolved;
 	private int[] picturesList = {
 			R.drawable.blue_cat_blue_selector,
@@ -67,10 +70,15 @@ public class MainActivity extends ActionBarActivity {
 	List<String> lstAnswersSolved;
 	ArrayAdapter<String> answersSolvedAdapter;
 	
+	int score = 0;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        txtScore = (TextView)findViewById(R.id.txtScore);
+        txtTimer = (TextView)findViewById(R.id.txtTimer);
         txtTotalAnswers = (TextView)findViewById(R.id.txtTotalAnswers);
         listViewAnswersSolved = (ListView)findViewById(R.id.lstViewAnswersSolved);
         
@@ -88,7 +96,7 @@ public class MainActivity extends ActionBarActivity {
         setOnClickListenersAndInitPictureList();
         ssi.initAllPossibleSets(pictures);
         
-        txtTotalAnswers.setText("Total Answers: " + ssi.getCorrectAnswers().size()); 
+        txtTotalAnswers.setText("Total Answers Left: " + ssi.getCorrectAnswers().size()); 
         
     }
 
@@ -233,12 +241,21 @@ public class MainActivity extends ActionBarActivity {
             			Answer a = new Answer(getSelectedButtons());
             			
             			if(ssi.isCorrectAnswer(a)) {
+            				score++;
             				lstAnswersSolved.add(a.toString());
                 			answersSolvedAdapter.notifyDataSetChanged();
                 			unselectButtons();
+                			txtTotalAnswers.setText("Total Answers Left: " + ssi.getCorrectAnswers().size()); 
+                			txtScore.setText("Score: " + score);
                 			Toast.makeText(activity, "Correct!", Toast.LENGTH_LONG).show();
+                			
+                			if(ssi.getCorrectAnswers().size() == 0)
+                				refreshGame();
+                			
             			}else {
+            				score--;
             				unselectButtons();
+            				txtScore.setText("Score: " + score);
             				Toast.makeText(activity, "Duplicate or wrong answer!", Toast.LENGTH_LONG).show();
             			}
             			
@@ -250,4 +267,21 @@ public class MainActivity extends ActionBarActivity {
         }
     }
     
+    
+    private void refreshGame() {
+    	pictures = new Picture[9];
+        
+        shuffleIntArray(picturesList);
+        
+        setOnClickListenersAndInitPictureList();
+        ssi.initAllPossibleSets(pictures);
+        
+        selectedCounter = 0;
+        answers = new int[3];
+        
+        lstAnswersSolved.clear();
+		answersSolvedAdapter.notifyDataSetChanged();
+        
+        txtTotalAnswers.setText("Total Answers Left: " + ssi.getCorrectAnswers().size()); 
+    }
 }
