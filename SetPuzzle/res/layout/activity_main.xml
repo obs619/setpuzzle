@@ -1,101 +1,204 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.maol.setpuzzle.activities.MainActivity" >
+    android:orientation="vertical"
+    android:weightSum="1">
 
-    <TextView
-        android:id="@+id/txtScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Score: 0" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:background="#171717"
+        android:layout_weight="0.10">
+        
+        <TextView
+	        android:id="@+id/txtTimer"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:textColor="#FFFFFF"
+	        android:textAppearance="?android:attr/textAppearanceLarge"
+	        android:gravity="center"
+	        android:layout_gravity="center"
+	        android:text="0:60" />
+        
+        <TextView
+	        android:id="@+id/txtTotalAnswers"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:textColor="#FFFFFF"
+	        android:textAppearance="?android:attr/textAppearanceSmall"
+	        android:gravity="center"
+	        android:layout_gravity="center"
+	        android:text="Answers Left: " />
+        
+        <TextView
+	        android:id="@+id/txtScore"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:textColor="#FFFFFF"
+	        android:textAppearance="?android:attr/textAppearanceLarge"
+	        android:gravity="center"
+	        android:layout_gravity="center"
+	        android:text="Score: 0" />
     
-    <TextView
-        android:id="@+id/txtTimer"
-        android:layout_below="@+id/txtScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Timer: " />
-    
-    <TextView
-        android:id="@+id/txtTotalAnswers"
-        android:layout_below="@+id/txtTimer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Total Answers: " />
+    </LinearLayout>
     
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtTotalAnswers" >
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.60"
+        android:weightSum="3">
 
         <TableRow 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="3">
         	<Button 
         	    android:layout_width="wrap_content" 
-        	    android:layout_height="wrap_content" 
-        	    android:layout_margin="4dp"/>
+        	    android:layout_height="match_parent" 
+        	    android:layout_weight="1"
+        	    android:text="1"
+        	    android:textColor="#FFFFFF"
+        	    android:textAppearance="?android:attr/textAppearanceLarge"
+        	    android:gravity="right"
+        	    android:paddingRight="8dp"
+        	    android:paddingTop="4dp"
+        	    android:background="@drawable/orange_bone_orange"
+        	    android:layout_margin="1dp"/>
         	<Button 
         	    android:layout_width="wrap_content" 
-        	    android:layout_height="wrap_content" 
-        	    android:layout_margin="4dp"/>
+        	    android:layout_height="match_parent" 
+        	    android:layout_weight="1"
+        	    android:text="2"
+        	    android:textColor="#FFFFFF"
+        	    android:textAppearance="?android:attr/textAppearanceLarge"
+        	    android:gravity="right"
+        	    android:paddingRight="8dp"
+        	    android:paddingTop="4dp"
+        	    android:background="@drawable/orange_bone_orange"
+        	    android:layout_margin="1dp"/>
         	<Button 
         	    android:layout_width="wrap_content" 
-        	    android:layout_height="wrap_content" 
-        	    android:layout_margin="4dp"/> 
+        	    android:layout_height="match_parent" 
+        	    android:layout_weight="1"
+        	    android:text="3"
+        	    android:textColor="#FFFFFF"
+        	    android:textAppearance="?android:attr/textAppearanceLarge"
+        	    android:gravity="right"
+        	    android:paddingRight="8dp"
+        	    android:paddingTop="4dp"
+        	    android:background="@drawable/orange_bone_orange"
+        	    android:layout_margin="1dp"/> 
         </TableRow>
         <TableRow 
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="3">
         	<Button 
         	    android:layout_width="wrap_content" 
-        	    android:layout_height="wrap_content" 
-        	    android:layout_margin="4dp"/>
+        	    android:layout_height="match_parent" 
+        	    android:layout_weight="1"
+        	    android:text="4"
+        	    android:textColor="#FFFFFF"
+        	    android:textAppearance="?android:attr/textAppearanceLarge"
+        	    android:gravity="right"
+        	    android:paddingRight="8dp"
+        	    android:paddingTop="4dp"
+        	    android:background="@drawable/orange_bone_orange"
+        	    android:layout_margin="1dp"/>
         	<Button 
         	    android:layout_width="wrap_content" 
-        	    android:layout_height="wrap_content" 
-        	    android:layout_margin="4dp"/>
+        	    android:layout_height="match_parent" 
+        	    android:layout_weight="1"
+        	    android:text="5"
+        	    android:textColor="#FFFFFF"
+        	    android:textAppearance="?android:attr/textAppearanceLarge"
+        	    android:gravity="right"
+        	    android:paddingRight="8dp"
+        	    android:paddingTop="4dp"
+        	    android:background="@drawable/orange_bone_orange"
+        	    android:layout_margin="1dp"/>
         	<Button 
         	    android:layout_width="wrap_content" 
-        	    android:layout_height="wrap_content" 
-        	    android:layout_margin="4dp"/>    
+        	    android:layout_height="match_parent" 
+        	    android:layout_weight="1"
+        	    android:text="6"
+        	    android:textColor="#FFFFFF"
+        	    android:textAppearance="?android:attr/textAppearanceLarge"
+        	    android:gravity="right"
+        	    android:paddingRight="8dp"
+        	    android:paddingTop="4dp"
+        	    android:background="@drawable/orange_bone_orange"
+        	    android:layout_margin="1dp"/> 
         </TableRow>
         <TableRow 
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="3">
         	<Button 
         	    android:layout_width="wrap_content" 
-        	    android:layout_height="wrap_content" 
-        	    android:layout_margin="4dp"/>
+        	    android:layout_height="match_parent" 
+        	    android:layout_weight="1"
+        	    android:text="7"
+        	    android:textColor="#FFFFFF"
+        	    android:textAppearance="?android:attr/textAppearanceLarge"
+        	    android:gravity="right"
+        	    android:paddingRight="8dp"
+        	    android:paddingTop="4dp"
+        	    android:background="@drawable/orange_bone_orange"
+        	    android:layout_margin="1dp"/>
         	<Button 
         	    android:layout_width="wrap_content" 
-        	    android:layout_height="wrap_content" 
-        	    android:layout_margin="4dp"/>
+        	    android:layout_height="match_parent" 
+        	    android:layout_weight="1"
+        	    android:text="8"
+        	    android:textColor="#FFFFFF"
+        	    android:textAppearance="?android:attr/textAppearanceLarge"
+        	    android:gravity="right"
+        	    android:paddingRight="8dp"
+        	    android:paddingTop="4dp"
+        	    android:background="@drawable/orange_bone_orange"
+        	    android:layout_margin="1dp"/>
         	<Button 
         	    android:layout_width="wrap_content" 
-        	    android:layout_height="wrap_content" 
-        	    android:layout_margin="4dp"/>     
+        	    android:layout_height="match_parent" 
+        	    android:layout_weight="1"
+        	    android:text="9"
+        	    android:textColor="#FFFFFF"
+        	    android:textAppearance="?android:attr/textAppearanceLarge"
+        	    android:gravity="right"
+        	    android:paddingRight="8dp"
+        	    android:paddingTop="4dp"
+        	    android:background="@drawable/orange_bone_orange"
+        	    android:layout_margin="1dp"/> 
         </TableRow>
     </TableLayout>
 
-    <Button
-        android:id="@+id/btnCheat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tableLayout"
-        android:onClick="clickCheat"
-        android:text="Cheat!" />
 
-    <ListView
+    <GridView
         android:id="@+id/lstViewAnswersSolved"
+        android:numColumns="2"
+        android:layout_weight="0.3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnCheat"/>
+        android:background="#1c1c1c"
+        android:layout_height="0dp"/>
     
-</RelativeLayout>
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
+    
+</LinearLayout>

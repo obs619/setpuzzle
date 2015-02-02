@@ -10,17 +10,21 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.Window;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.maol.setpuzzle.R;
 import com.maol.setpuzzle.models.Answer;
 import com.maol.setpuzzle.models.Picture;
@@ -34,45 +38,50 @@ public class MainActivity extends ActionBarActivity {
 	Picture[] pictures;
 	int[] answers = new int[3];
 	SetServiceImpl ssi = new SetServiceImpl();
+	
+	TextView txtTimer;
 	TextView txtTotalAnswers;
 	TextView txtScore;
-	TextView txtTimer;
+
+    Typeface tfGadugi;
+    Typeface tfGadugib;
+    Typeface tfPrototype;
 	
-	ListView listViewAnswersSolved;
+	GridView listViewAnswersSolved;
 	private int[] picturesList = {
-			R.drawable.blue_cat_blue_selector,
-			R.drawable.blue_cat_red_selector,
-			R.drawable.blue_cat_yellow_selector,
-			R.drawable.blue_dog_blue_selector,
-			R.drawable.blue_dog_red_selector,
-			R.drawable.blue_dog_yellow_selector,
-			R.drawable.blue_mouse_blue_selector,
-			R.drawable.blue_mouse_red_selector,
-			R.drawable.blue_mouse_yellow_selector,
+			R.drawable.orange_bone_orange_selector,
+			R.drawable.orange_bone_red_selector,
+			R.drawable.orange_bone_yellow_selector,
+			R.drawable.orange_cat_orange_selector,
+			R.drawable.orange_cat_red_selector,
+			R.drawable.orange_cat_yellow_selector,
+			R.drawable.orange_mouse_orange_selector,
+			R.drawable.orange_mouse_red_selector,
+			R.drawable.orange_mouse_yellow_selector,
 			
-			R.drawable.red_cat_blue_selector,
+			R.drawable.red_bone_orange_selector,
+			R.drawable.red_bone_red_selector,
+			R.drawable.red_bone_yellow_selector,
+			R.drawable.red_cat_orange_selector,
 			R.drawable.red_cat_red_selector,
 			R.drawable.red_cat_yellow_selector,
-			R.drawable.red_dog_blue_selector,
-			R.drawable.red_dog_red_selector,
-			R.drawable.red_dog_yellow_selector,
-			R.drawable.red_mouse_blue_selector,
+			R.drawable.red_mouse_orange_selector,
 			R.drawable.red_mouse_red_selector,
 			R.drawable.red_mouse_yellow_selector,
 			
-			R.drawable.yellow_cat_blue_selector,
+			R.drawable.yellow_bone_orange_selector,
+			R.drawable.yellow_bone_red_selector,
+			R.drawable.yellow_bone_yellow_selector,
+			R.drawable.yellow_cat_orange_selector,
 			R.drawable.yellow_cat_red_selector,
 			R.drawable.yellow_cat_yellow_selector,
-			R.drawable.yellow_dog_blue_selector,
-			R.drawable.yellow_dog_red_selector,
-			R.drawable.yellow_dog_yellow_selector,
-			R.drawable.yellow_mouse_blue_selector,
+			R.drawable.yellow_mouse_orange_selector,
 			R.drawable.yellow_mouse_red_selector,
 			R.drawable.yellow_mouse_yellow_selector
 	};
 
-	List<String> lstAnswersSolved;
-	ArrayAdapter<String> answersSolvedAdapter;
+	List<Answer> lstAnswersSolved;
+	GridViewAnswerAdapter answersSolvedAdapter;
 	
 	int score = 0;
 	
@@ -82,16 +91,32 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         
-        txtScore = (TextView)findViewById(R.id.txtScore);
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getActionBar().hide();
+        
+        setContentView(R.layout.activity_main);
+       
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        
         txtTimer = (TextView)findViewById(R.id.txtTimer);
         txtTotalAnswers = (TextView)findViewById(R.id.txtTotalAnswers);
-        listViewAnswersSolved = (ListView)findViewById(R.id.lstViewAnswersSolved);
+        txtScore = (TextView)findViewById(R.id.txtScore);
+        listViewAnswersSolved = (GridView)findViewById(R.id.lstViewAnswersSolved);
         
-        lstAnswersSolved = new ArrayList<String>();
+        tfGadugi = Typeface.createFromAsset(getAssets(), "fonts/gadugi.ttf");
+        tfGadugib = Typeface.createFromAsset(getAssets(), "fonts/gadugib.ttf");
+        tfPrototype = Typeface.createFromAsset(getAssets(), "fonts/Prototype.ttf");
         
-        answersSolvedAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,lstAnswersSolved);
+        txtTimer.setTypeface(tfPrototype);
+        txtTotalAnswers.setTypeface(tfPrototype);
+        txtScore.setTypeface(tfPrototype);
+        
+        lstAnswersSolved = new ArrayList<Answer>();
+        
+        answersSolvedAdapter = new GridViewAnswerAdapter(this, lstAnswersSolved);
 
         listViewAnswersSolved.setAdapter(answersSolvedAdapter);
         
@@ -103,31 +128,20 @@ public class MainActivity extends ActionBarActivity {
         setOnClickListenersAndInitPictureList();
         ssi.initAllPossibleSets(pictures);
         
-        txtTotalAnswers.setText("Total Answers Left: " + ssi.getCorrectAnswers().size()); 
-        /*
-        new CountDownTimer(totaltime, 1000) {
+        txtTotalAnswers.setText("Answers Left: " + ssi.getCorrectAnswers().size()); 
 
-            public void onTick(long millisUntilFinished) {
-                txtTimer.setText("Timer: " + millisUntilFinished / 1000);
-            }
-
-            public void onFinish() {
-            	
-            }
-         }.start();
-        */
          Timer timer = new Timer();
          timer.schedule(new TimerTask() {
 			
 			@Override
 			public void run() {
 				if(!paused) {
-					totaltime--;
+					totaltime++;
 					MainActivity.this.runOnUiThread(new Runnable() {
 						
 						@Override
 						public void run() {
-							txtTimer.setText("Timer: " + totaltime);
+							txtTimer.setText("0:" + totaltime);
 							
 							if(totaltime == 0) {
 
@@ -188,6 +202,7 @@ public class MainActivity extends ActionBarActivity {
                         Button button = (Button) tableRow.getChildAt(x);                   
                         button.setBackgroundResource(picturesList[x]);
                         button.setOnClickListener(new PictureClick(x));
+                        button.setTypeface(tfGadugi);
                         pictures[x] = getPicture(picturesList[x]);
                     }
             	}else if(i == 1) {
@@ -196,6 +211,7 @@ public class MainActivity extends ActionBarActivity {
                         Button button = (Button) tableRow.getChildAt(x);                   
                         button.setBackgroundResource(picturesList[x + 3]);
                         button.setOnClickListener(new PictureClick( x + 3));
+                        button.setTypeface(tfGadugi);
                         pictures[x + 3] = getPicture(picturesList[x + 3]);
                     }
             	}else if(i == 2) {
@@ -204,6 +220,7 @@ public class MainActivity extends ActionBarActivity {
                         Button button = (Button) tableRow.getChildAt(x);                   
                         button.setBackgroundResource(picturesList[x + 6]);
                         button.setOnClickListener(new PictureClick( x + 6));
+                        button.setTypeface(tfGadugi);
                         pictures[x + 6] = getPicture(picturesList[x + 6]);
                     }
             	}               
@@ -309,29 +326,36 @@ public class MainActivity extends ActionBarActivity {
                 	button.setSelected(true);
                 	
             		if(selectedCounter == 3) {
-            			Answer a = new Answer(getSelectedButtons());
+            			new Handler().postDelayed(new Runnable(){
+            	            @Override
+            	            public void run() {
+            	            	Answer a = new Answer(getSelectedButtons());
+                    			
+                    			if(ssi.isCorrectAnswer(a)) {
+                    				score++;
+                    				lstAnswersSolved.add(a);
+                        			answersSolvedAdapter.notifyDataSetChanged();
+                        			unselectButtons();
+                        			txtTotalAnswers.setText("Answers Left: " + ssi.getCorrectAnswers().size()); 
+                        			txtScore.setText("Score: " + score);
+                        			Toast.makeText(activity, "Correct!", Toast.LENGTH_LONG).show();
+                        			
+                        			if(ssi.getCorrectAnswers().size() == 0)
+                        				refreshGame();
+                        			
+                    			}else {
+                    				score--;
+                    				unselectButtons();
+                    				txtScore.setText("Score: " + score);
+                    				Toast.makeText(activity, "Duplicate or wrong answer!", Toast.LENGTH_LONG).show();
+                    			}
+                    			
+                    			answers = new int[3];
+                    			selectedCounter = 0;
+            	            }
+            	        }, 200);
             			
-            			if(ssi.isCorrectAnswer(a)) {
-            				score++;
-            				lstAnswersSolved.add(a.toString());
-                			answersSolvedAdapter.notifyDataSetChanged();
-                			unselectButtons();
-                			txtTotalAnswers.setText("Total Answers Left: " + ssi.getCorrectAnswers().size()); 
-                			txtScore.setText("Score: " + score);
-                			Toast.makeText(activity, "Correct!", Toast.LENGTH_LONG).show();
-                			
-                			if(ssi.getCorrectAnswers().size() == 0)
-                				refreshGame();
-                			
-            			}else {
-            				score--;
-            				unselectButtons();
-            				txtScore.setText("Score: " + score);
-            				Toast.makeText(activity, "Duplicate or wrong answer!", Toast.LENGTH_LONG).show();
-            			}
             			
-            			answers = new int[3];
-            			selectedCounter = 0;
             		}
                 		
                 }
