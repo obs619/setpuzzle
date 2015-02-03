@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TableLayout;
@@ -94,6 +95,9 @@ public class MainActivity extends ActionBarActivity {
         
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getActionBar().hide();
+        
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN);
         
         setContentView(R.layout.activity_main);
        

@@ -190,6 +190,7 @@
         android:numColumns="2"
         android:layout_weight="0.3"
         android:layout_width="wrap_content"
+        android:padding="8dp"
         android:background="#1c1c1c"
         android:layout_height="0dp"/>
     
@@ -197,7 +198,8 @@
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        ads:adSize="BANNER"
+        android:background="#1c1c1c"
+        ads:adSize="SMART_BANNER"
         ads:adUnitId="@string/banner_ad_unit_id">
     </com.google.android.gms.ads.AdView>
     

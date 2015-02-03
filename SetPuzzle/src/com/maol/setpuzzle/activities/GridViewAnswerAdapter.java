@@ -69,9 +69,9 @@ public class GridViewAnswerAdapter extends BaseAdapter{
         else
         	convertView.setBackgroundColor(Color.parseColor("#1c1c1c"));
 		*/
-		viewHolder.firstans.setText(items.get(position).getAnswer()[0] + "");
-		viewHolder.secondans.setText(items.get(position).getAnswer()[1] + "");
-		viewHolder.thirdans.setText(items.get(position).getAnswer()[2] + "");
+		viewHolder.firstans.setText(items.get(position).getAnswer()[0] + 1 + "");
+		viewHolder.secondans.setText(items.get(position).getAnswer()[1] + 1 + "");
+		viewHolder.thirdans.setText(items.get(position).getAnswer()[2] + 1 + "");
 		
 		return convertView;
 	}
