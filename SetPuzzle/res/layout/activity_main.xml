@@ -34,7 +34,7 @@
 	        android:textAppearance="?android:attr/textAppearanceSmall"
 	        android:gravity="center"
 	        android:layout_gravity="center"
-	        android:text="Answers Left: " />
+	        android:text="" />
         
         <TextView
 	        android:id="@+id/txtScore"

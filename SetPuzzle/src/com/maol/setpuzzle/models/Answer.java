@@ -3,7 +3,8 @@ package com.maol.setpuzzle.models;
 public class Answer {
 
 	private int[] answer;
-
+	private boolean solved;
+	
 	public Answer(int a, int b, int c) {
 		answer = new int[3];
 		answer[0] = a;
@@ -38,6 +39,14 @@ public class Answer {
 				flag = false;
 		}
 		return flag;
+	}
+	
+	public boolean isSolved() {
+		return solved;
+	}
+
+	public void setSolved(boolean solved) {
+		this.solved = solved;
 	}
 	
 	@Override

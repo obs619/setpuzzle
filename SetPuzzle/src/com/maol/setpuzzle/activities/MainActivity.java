@@ -132,8 +132,14 @@ public class MainActivity extends ActionBarActivity {
         setOnClickListenersAndInitPictureList();
         ssi.initAllPossibleSets(pictures);
         
-        txtTotalAnswers.setText("Answers Left: " + ssi.getCorrectAnswers().size()); 
+        //txtTotalAnswers.setText("Answers Left: " + ssi.getCorrectAnswers().size()); 
 
+        for(Answer ans : ssi.getCorrectAnswers()) {
+        	ans.setSolved(false);
+        	lstAnswersSolved.add(ans);
+			answersSolvedAdapter.notifyDataSetChanged();
+        }
+        	
          Timer timer = new Timer();
          timer.schedule(new TimerTask() {
 			
@@ -337,21 +343,33 @@ public class MainActivity extends ActionBarActivity {
                     			
                     			if(ssi.isCorrectAnswer(a)) {
                     				score++;
-                    				lstAnswersSolved.add(a);
+                    				for(Answer answer : lstAnswersSolved) {
+                    					if(answer.toString().equals(a.toString()))
+                    						answer.setSolved(true);
+                    				}
                         			answersSolvedAdapter.notifyDataSetChanged();
                         			unselectButtons();
-                        			txtTotalAnswers.setText("Answers Left: " + ssi.getCorrectAnswers().size()); 
+                        			//txtTotalAnswers.setText("Answers Left: " + ssi.getCorrectAnswers().size()); 
                         			txtScore.setText("Score: " + score);
-                        			Toast.makeText(activity, "Correct!", Toast.LENGTH_LONG).show();
+                        			//Toast.makeText(activity, "Correct!", Toast.LENGTH_LONG).show();
                         			
-                        			if(ssi.getCorrectAnswers().size() == 0)
-                        				refreshGame();
+                        			if(ssi.getCorrectAnswers().size() == 0) {
+                        				Toast.makeText(activity, "Congrats! Timer reset! Move on to next puzzle!", Toast.LENGTH_LONG).show();
+                        				
+                        				new Handler().postDelayed(new Runnable(){
+                            	            @Override
+                            	            public void run() {
+                                				refreshGame();
+                            	            	}
+                            	            }, 2000);
+                        				
+                        			}
                         			
                     			}else {
                     				score--;
                     				unselectButtons();
                     				txtScore.setText("Score: " + score);
-                    				Toast.makeText(activity, "Duplicate or wrong answer!", Toast.LENGTH_LONG).show();
+                    				Toast.makeText(activity, "Duplicate or wrong answer!", Toast.LENGTH_SHORT).show();
                     			}
                     			
                     			answers = new int[3];
@@ -370,6 +388,8 @@ public class MainActivity extends ActionBarActivity {
     private void refreshGame() {
     	pictures = new Picture[9];
         
+    	totaltime = 60;
+    	
         shuffleIntArray(picturesList);
         
         setOnClickListenersAndInitPictureList();
@@ -381,6 +401,14 @@ public class MainActivity extends ActionBarActivity {
         lstAnswersSolved.clear();
 		answersSolvedAdapter.notifyDataSetChanged();
         
-        txtTotalAnswers.setText("Total Answers Left: " + ssi.getCorrectAnswers().size()); 
+       // txtTotalAnswers.setText("Answers Left: " + ssi.getCorrectAnswers().size()); 
+        
+        for(Answer ans : ssi.getCorrectAnswers()) {
+        	ans.setSolved(false);
+        	lstAnswersSolved.add(ans);
+			answersSolvedAdapter.notifyDataSetChanged();
+        }
+        
+        unselectButtons();
     }
 }

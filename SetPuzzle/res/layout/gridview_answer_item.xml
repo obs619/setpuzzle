@@ -6,10 +6,63 @@
     android:gravity="center"
     android:orientation="horizontal" >
     
-    <LinearLayout 
+     <LinearLayout 
+        android:id="@+id/unsolved_layout"
         android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:background="@drawable/background_with_shadow"
+	    android:background="@drawable/background_unsolved"
+        android:orientation="horizontal"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        >
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="24dp"
+            />
+        
+        <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="1"
+	        android:textColor="#070707"
+	       	android:textAppearance="?android:attr/textAppearanceLarge"
+	       	android:layout_margin="8dp">
+	    </TextView>
+	    
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="2"
+	        android:textColor="#070707"
+	       	android:textAppearance="?android:attr/textAppearanceLarge"
+	       	android:layout_margin="8dp">
+	        
+	    </TextView>
+	    
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="3"
+	        android:textColor="#070707"
+	       	android:textAppearance="?android:attr/textAppearanceLarge"
+	       	android:layout_margin="8dp">
+	        
+	    </TextView>
+        
+	    <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="24dp"
+            />
+     </LinearLayout>
+    
+    <LinearLayout 
+        android:id="@+id/solved_layout"
+        android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/background_solved"
         android:orientation="horizontal"
         android:layout_margin="8dp"
         android:gravity="center"
