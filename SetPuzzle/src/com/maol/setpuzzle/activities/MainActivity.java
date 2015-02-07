@@ -41,7 +41,6 @@ public class MainActivity extends ActionBarActivity {
 	SetServiceImpl ssi = new SetServiceImpl();
 	
 	TextView txtTimer;
-	TextView txtTotalAnswers;
 	TextView txtScore;
 
     Typeface tfGadugi;
@@ -106,7 +105,6 @@ public class MainActivity extends ActionBarActivity {
         mAdView.loadAd(adRequest);
         
         txtTimer = (TextView)findViewById(R.id.txtTimer);
-        txtTotalAnswers = (TextView)findViewById(R.id.txtTotalAnswers);
         txtScore = (TextView)findViewById(R.id.txtScore);
         listViewAnswersSolved = (GridView)findViewById(R.id.lstViewAnswersSolved);
         
@@ -115,7 +113,6 @@ public class MainActivity extends ActionBarActivity {
         tfPrototype = Typeface.createFromAsset(getAssets(), "fonts/Prototype.ttf");
         
         txtTimer.setTypeface(tfPrototype);
-        txtTotalAnswers.setTypeface(tfPrototype);
         txtScore.setTypeface(tfPrototype);
         
         lstAnswersSolved = new ArrayList<Answer>();
@@ -131,9 +128,7 @@ public class MainActivity extends ActionBarActivity {
         
         setOnClickListenersAndInitPictureList();
         ssi.initAllPossibleSets(pictures);
-        
-        //txtTotalAnswers.setText("Answers Left: " + ssi.getCorrectAnswers().size()); 
-
+       
         for(Answer ans : ssi.getCorrectAnswers()) {
         	ans.setSolved(false);
         	lstAnswersSolved.add(ans);
@@ -349,9 +344,7 @@ public class MainActivity extends ActionBarActivity {
                     				}
                         			answersSolvedAdapter.notifyDataSetChanged();
                         			unselectButtons();
-                        			//txtTotalAnswers.setText("Answers Left: " + ssi.getCorrectAnswers().size()); 
                         			txtScore.setText("Score: " + score);
-                        			//Toast.makeText(activity, "Correct!", Toast.LENGTH_LONG).show();
                         			
                         			if(ssi.getCorrectAnswers().size() == 0) {
                         				Toast.makeText(activity, "Congrats! Timer reset! Move on to next puzzle!", Toast.LENGTH_LONG).show();
@@ -375,7 +368,7 @@ public class MainActivity extends ActionBarActivity {
                     			answers = new int[3];
                     			selectedCounter = 0;
             	            }
-            	        }, 200);
+            	        }, 100);
             			
             			
             		}
@@ -400,9 +393,7 @@ public class MainActivity extends ActionBarActivity {
         
         lstAnswersSolved.clear();
 		answersSolvedAdapter.notifyDataSetChanged();
-        
-       // txtTotalAnswers.setText("Answers Left: " + ssi.getCorrectAnswers().size()); 
-        
+         
         for(Answer ans : ssi.getCorrectAnswers()) {
         	ans.setSolved(false);
         	lstAnswersSolved.add(ans);

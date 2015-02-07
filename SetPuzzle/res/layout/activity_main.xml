@@ -10,40 +10,33 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:weightSum="3"
+        android:weightSum="2"
         android:background="#171717"
         android:layout_weight="0.10">
         
         <TextView
 	        android:id="@+id/txtTimer"
 	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
+	        android:layout_height="match_parent"
 	        android:layout_weight="1"
+	        android:background="#53bc84"
 	        android:textColor="#FFFFFF"
 	        android:textAppearance="?android:attr/textAppearanceLarge"
-	        android:gravity="center"
+	        android:gravity="left|center"
+	        android:paddingLeft="16dp"
 	        android:layout_gravity="center"
 	        android:text="0:60" />
-        
-        <TextView
-	        android:id="@+id/txtTotalAnswers"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:textColor="#FFFFFF"
-	        android:textAppearance="?android:attr/textAppearanceSmall"
-	        android:gravity="center"
-	        android:layout_gravity="center"
-	        android:text="" />
-        
+       
         <TextView
 	        android:id="@+id/txtScore"
 	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
+	        android:layout_height="match_parent"
 	        android:layout_weight="1"
+	        android:background="#65cb9f"
 	        android:textColor="#FFFFFF"
 	        android:textAppearance="?android:attr/textAppearanceLarge"
-	        android:gravity="center"
+	        android:gravity="right|center"
+	        android:paddingRight="16dp"
 	        android:layout_gravity="center"
 	        android:text="Score: 0" />
     
@@ -184,23 +177,64 @@
         </TableRow>
     </TableLayout>
 
-
-    <GridView
-        android:id="@+id/lstViewAnswersSolved"
-        android:numColumns="2"
-        android:layout_weight="0.3"
-        android:layout_width="wrap_content"
-        android:padding="8dp"
-        android:background="#1c1c1c"
-        android:layout_height="0dp"/>
     
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#1c1c1c"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id">
-    </com.google.android.gms.ads.AdView>
+    <FrameLayout 
+        android:layout_weight="0.3"
+	    android:layout_height="0dp"
+        android:layout_width="wrap_content">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:weightSum="2"
+	        android:orientation="horizontal">
+        	
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:background="#53bc84"
+                ></LinearLayout>
+            
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:background="#65cb9f"
+                ></LinearLayout>
+            
+        </LinearLayout>
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            
+            <GridView
+		        android:id="@+id/lstViewAnswersSolved"
+		        android:numColumns="2"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:padding="8dp"
+		        android:layout_above="@+id/adView"/>
+        
+            <com.google.android.gms.ads.AdView
+		        android:id="@+id/adView"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        ads:adSize="SMART_BANNER"
+		        android:layout_alignParentBottom="true"
+		        ads:adUnitId="@string/banner_ad_unit_id">
+		    </com.google.android.gms.ads.AdView>
+            
+            
+        </RelativeLayout>
+        
+        
+        
+     </FrameLayout>
+
+    
+    
+
     
 </LinearLayout>
