@@ -3,15 +3,18 @@ package com.maol.setpuzzle.activities;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -47,6 +50,8 @@ public class MainActivity extends ActionBarActivity {
     Typeface tfGadugib;
     Typeface tfPrototype;
 	
+    TableLayout tableLayout;
+    
 	GridView listViewAnswersSolved;
 	private int[] picturesList = {
 			R.drawable.orange_bone_orange_selector,
@@ -85,8 +90,11 @@ public class MainActivity extends ActionBarActivity {
 	
 	int score = 0;
 	
-	private long totaltime = 60;
-	private boolean paused = false;
+	CountDownTimer countdownTimer;
+	long initialTimeStart = 60 * 1000;
+	long totalTimeLeft = 0;
+	boolean startedTimeOnCreate = false;
+	
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +111,8 @@ public class MainActivity extends ActionBarActivity {
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+        
+        tableLayout = (TableLayout) findViewById(R.id.tableLayout);
         
         txtTimer = (TextView)findViewById(R.id.txtTimer);
         txtScore = (TextView)findViewById(R.id.txtScore);
@@ -135,58 +145,113 @@ public class MainActivity extends ActionBarActivity {
 			answersSolvedAdapter.notifyDataSetChanged();
         }
         	
-         Timer timer = new Timer();
-         timer.schedule(new TimerTask() {
-			
-			@Override
-			public void run() {
-				if(!paused) {
-					totaltime++;
-					MainActivity.this.runOnUiThread(new Runnable() {
-						
-						@Override
-						public void run() {
-							txtTimer.setText("0:" + totaltime);
-							
-							if(totaltime == 0) {
-
-					            paused = true;
-								AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-								builder.setTitle("Result");
-							    builder.setCancelable(false);
-							    builder.setMessage("Congratulations! Score: " + score) ;
-							    builder.setPositiveButton("ok", new OnClickListener() {
-									
-									@Override
-									public void onClick(DialogInterface dialog, int which) {
-										finish();
-									}
-								});
-							
-								AlertDialog alert = builder.create();
-					            alert.show();
-					            
-							}
-							
-						}
-					});
-				}
-				
-			}
-		}, 0, 1000);
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run() {
+            	createCountDownTimer();
+            }
+        }, 1000);
     
+    }
+    
+    public void createCountDownTimer() {
+    	
+    	countdownTimer = new CountDownTimer(initialTimeStart, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+            	totalTimeLeft = millisUntilFinished;
+            	
+                String minute=""+(millisUntilFinished/1000)/60;
+                String second=""+(millisUntilFinished/1000)%60;
+                
+                if((millisUntilFinished/1000)/60<10)
+                    minute="0"+(millisUntilFinished/1000)/60;
+                
+                if((millisUntilFinished/1000)%60<10)
+                    second="0"+(millisUntilFinished/1000)%60;
+                
+                txtTimer.setText(minute+":"+second);
+                startedTimeOnCreate = true;
+            }
+            public void onFinish() {
+            	txtTimer.setText("00:00");
+            	AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+				builder.setTitle("Result");
+			    builder.setCancelable(false);
+			    builder.setMessage("Congratulations! Score: " + score) ;
+			    builder.setPositiveButton("ok", new OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						finish();
+					}
+				});
+			
+				AlertDialog alert = builder.create();
+	            alert.show();
+            }
+         }.start();
+    }
+
+    
+    public void createCountDownTimerOnResume() {
+    	
+    		countdownTimer = new CountDownTimer(totalTimeLeft, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+
+                	totalTimeLeft = millisUntilFinished;
+                	
+                	String minute=""+(millisUntilFinished/1000)/60;
+                    String second=""+(millisUntilFinished/1000)%60;
+                    
+                    if((millisUntilFinished/1000)/60<10)
+                        minute="0"+(millisUntilFinished/1000)/60;
+                    
+                    if((millisUntilFinished/1000)%60<10)
+                        second="0"+(millisUntilFinished/1000)%60;
+                    
+                    txtTimer.setText(minute+":"+second);
+                }
+                public void onFinish() {
+                	txtTimer.setText("00:00");
+                	AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+    				builder.setTitle("Result");
+    			    builder.setCancelable(false);
+    			    builder.setMessage("Congratulations! Score: " + score) ;
+    			    builder.setPositiveButton("ok", new OnClickListener() {
+    					
+    					@Override
+    					public void onClick(DialogInterface dialog, int which) {
+    						finish();
+    					}
+    				});
+    			
+    				AlertDialog alert = builder.create();
+    	            alert.show();
+                }
+             }.start();
+    }
+    
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);   
     }
     
     @Override
     protected void onPause() {
     	super.onPause();
-    	paused = true;
+    	if(countdownTimer != null)
+    		countdownTimer.cancel();
     }
     
     @Override
     protected void onResume() {
     	super.onResume();
-    	paused = false;
+    	if(startedTimeOnCreate) 
+    		createCountDownTimerOnResume();
     }
     
     
@@ -332,7 +397,8 @@ public class MainActivity extends ActionBarActivity {
                 	
             		if(selectedCounter == 3) {
             			new Handler().postDelayed(new Runnable(){
-            	            @Override
+            	            @SuppressLint("NewApi")
+							@Override
             	            public void run() {
             	            	Answer a = new Answer(getSelectedButtons());
                     			
@@ -362,7 +428,23 @@ public class MainActivity extends ActionBarActivity {
                     				score--;
                     				unselectButtons();
                     				txtScore.setText("Score: " + score);
-                    				Toast.makeText(activity, "Duplicate or wrong answer!", Toast.LENGTH_SHORT).show();
+                    				
+                    				ColorDrawable f = new ColorDrawable(new Color().parseColor("#C80000"));
+                    				ColorDrawable f1 = new ColorDrawable(Color.WHITE);
+
+                    	            AnimationDrawable ad = new AnimationDrawable();
+                    	            ad.addFrame(f, 200);
+                    	            ad.addFrame(f1, 200);
+                    	            ad.setOneShot(true);
+                    				
+                    	            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        	            tableLayout.setBackground(ad);
+                    	           }else {
+                    	        	   tableLayout.setBackgroundDrawable(ad);
+                    	           }
+                    	            
+                    	            ad.start();
+                    				
                     			}
                     			
                     			answers = new int[3];
@@ -380,8 +462,6 @@ public class MainActivity extends ActionBarActivity {
     
     private void refreshGame() {
     	pictures = new Picture[9];
-        
-    	totaltime = 60;
     	
         shuffleIntArray(picturesList);
         

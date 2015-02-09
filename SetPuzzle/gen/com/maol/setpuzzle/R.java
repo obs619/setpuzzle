@@ -1611,7 +1611,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f0c0002;
         public static final int action_menu_presenter=0x7f0c0003;
         public static final int action_mode_close_button=0x7f0c0039;
-        public static final int action_settings=0x7f0c005b;
+        public static final int action_settings=0x7f0c005e;
         public static final int activity_chooser_view_content=0x7f0c003a;
         public static final int adView=0x7f0c0055;
         public static final int adjust_height=0x7f0c0006;
@@ -1619,6 +1619,9 @@ containing a value of this type.
         public static final int always=0x7f0c0025;
         public static final int beginning=0x7f0c002c;
         public static final int book_now=0x7f0c0016;
+        public static final int btn_help=0x7f0c0058;
+        public static final int btn_highscore=0x7f0c0057;
+        public static final int btn_play=0x7f0c0056;
         public static final int buyButton=0x7f0c0012;
         public static final int buy_now=0x7f0c0017;
         public static final int buy_with_google=0x7f0c0018;
@@ -1673,7 +1676,7 @@ containing a value of this type.
         public static final int showCustom=0x7f0c0021;
         public static final int showHome=0x7f0c0022;
         public static final int showTitle=0x7f0c0023;
-        public static final int solved_layout=0x7f0c0057;
+        public static final int solved_layout=0x7f0c005a;
         public static final int split_action_bar=0x7f0c0033;
         public static final int strict_sandbox=0x7f0c0011;
         public static final int submit_area=0x7f0c004e;
@@ -1684,10 +1687,10 @@ containing a value of this type.
         public static final int top_action_bar=0x7f0c0035;
         public static final int txtScore=0x7f0c0052;
         public static final int txtTimer=0x7f0c0051;
-        public static final int txtfirstans=0x7f0c0058;
-        public static final int txtsecondans=0x7f0c0059;
-        public static final int txtthirdans=0x7f0c005a;
-        public static final int unsolved_layout=0x7f0c0056;
+        public static final int txtfirstans=0x7f0c005b;
+        public static final int txtsecondans=0x7f0c005c;
+        public static final int txtthirdans=0x7f0c005d;
+        public static final int unsolved_layout=0x7f0c0059;
         public static final int up=0x7f0c0036;
         public static final int useLogo=0x7f0c0024;
         public static final int withText=0x7f0c0029;
@@ -1745,8 +1748,9 @@ containing a value of this type.
         public static final int abc_search_view=0x7f030016;
         public static final int abc_simple_decor=0x7f030017;
         public static final int activity_main=0x7f030018;
-        public static final int gridview_answer_item=0x7f030019;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001a;
+        public static final int activity_menu=0x7f030019;
+        public static final int gridview_answer_item=0x7f03001a;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001b;
     }
     public static final class menu {
         public static final int main=0x7f0d0000;
