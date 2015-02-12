@@ -6,9 +6,7 @@ import java.util.Random;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
@@ -156,40 +154,35 @@ public class MainActivity extends ActionBarActivity {
     
     public void createCountDownTimer() {
     	
-    	countdownTimer = new CountDownTimer(initialTimeStart, 1000) {
+    	countdownTimer = new CountDownTimer(initialTimeStart, 100) {
 
             public void onTick(long millisUntilFinished) {
 
-            	totalTimeLeft = millisUntilFinished;
+            	if (Math.round((float)millisUntilFinished / 1000.0f) != totalTimeLeft)
+                {  
+            		totalTimeLeft = Math.round((float)millisUntilFinished / 1000.0f);
+            		
+            		String minute=""+(millisUntilFinished/1000)/60;
+                    String second=""+(millisUntilFinished/1000)%60;
+                    
+                    if((millisUntilFinished/1000)/60<10)
+                        minute="0"+(millisUntilFinished/1000)/60;
+                    
+                    if((millisUntilFinished/1000)%60<10)
+                        second="0"+(millisUntilFinished/1000)%60;
+                    
+                    txtTimer.setText(minute+":"+second);
+                    startedTimeOnCreate = true;
+                }
             	
-                String minute=""+(millisUntilFinished/1000)/60;
-                String second=""+(millisUntilFinished/1000)%60;
-                
-                if((millisUntilFinished/1000)/60<10)
-                    minute="0"+(millisUntilFinished/1000)/60;
-                
-                if((millisUntilFinished/1000)%60<10)
-                    second="0"+(millisUntilFinished/1000)%60;
-                
-                txtTimer.setText(minute+":"+second);
-                startedTimeOnCreate = true;
             }
             public void onFinish() {
             	txtTimer.setText("00:00");
-            	AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-				builder.setTitle("Result");
-			    builder.setCancelable(false);
-			    builder.setMessage("Congratulations! Score: " + score) ;
-			    builder.setPositiveButton("ok", new OnClickListener() {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						finish();
-					}
-				});
-			
-				AlertDialog alert = builder.create();
-	            alert.show();
+
+            	Intent intent = new Intent(MainActivity.this, GameOverActivity.class);
+            	intent.putExtra("playerscore", score);
+            	startActivity(intent);
+            	finish();
             }
          }.start();
     }
@@ -201,35 +194,29 @@ public class MainActivity extends ActionBarActivity {
 
                 public void onTick(long millisUntilFinished) {
 
-                	totalTimeLeft = millisUntilFinished;
-                	
-                	String minute=""+(millisUntilFinished/1000)/60;
-                    String second=""+(millisUntilFinished/1000)%60;
-                    
-                    if((millisUntilFinished/1000)/60<10)
-                        minute="0"+(millisUntilFinished/1000)/60;
-                    
-                    if((millisUntilFinished/1000)%60<10)
-                        second="0"+(millisUntilFinished/1000)%60;
-                    
-                    txtTimer.setText(minute+":"+second);
+                	if (Math.round((float)millisUntilFinished / 1000.0f) != totalTimeLeft)
+                    {  
+                		totalTimeLeft = Math.round((float)millisUntilFinished / 1000.0f);
+                		
+                		String minute=""+(millisUntilFinished/1000)/60;
+                        String second=""+(millisUntilFinished/1000)%60;
+                        
+                        if((millisUntilFinished/1000)/60<10)
+                            minute="0"+(millisUntilFinished/1000)/60;
+                        
+                        if((millisUntilFinished/1000)%60<10)
+                            second="0"+(millisUntilFinished/1000)%60;
+                        
+                        txtTimer.setText(minute+":"+second);
+                    }
                 }
                 public void onFinish() {
                 	txtTimer.setText("00:00");
-                	AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-    				builder.setTitle("Result");
-    			    builder.setCancelable(false);
-    			    builder.setMessage("Congratulations! Score: " + score) ;
-    			    builder.setPositiveButton("ok", new OnClickListener() {
-    					
-    					@Override
-    					public void onClick(DialogInterface dialog, int which) {
-    						finish();
-    					}
-    				});
-    			
-    				AlertDialog alert = builder.create();
-    	            alert.show();
+                	
+                	Intent intent = new Intent(MainActivity.this, GameOverActivity.class);
+                	intent.putExtra("playerscore", score);
+                	startActivity(intent);
+                	finish();
                 }
              }.start();
     }

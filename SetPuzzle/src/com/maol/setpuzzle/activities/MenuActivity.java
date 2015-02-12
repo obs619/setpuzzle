@@ -22,7 +22,7 @@ public class MenuActivity extends Activity{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN);
         
-		this.setContentView(R.layout.activity_menu);
+		setContentView(R.layout.activity_menu);
 		
 	}
 	

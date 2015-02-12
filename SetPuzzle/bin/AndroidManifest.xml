@@ -33,6 +33,11 @@
             android:screenOrientation="portrait"
    			android:configChanges="orientation|keyboardHidden" />
         
+        <activity
+            android:name=".activities.GameOverActivity"
+            android:screenOrientation="portrait"
+   			android:configChanges="orientation|keyboardHidden" />
+        
         <meta-data android:name="com.google.android.gms.version" 
 		    android:value="@integer/google_play_services_version" />
 		

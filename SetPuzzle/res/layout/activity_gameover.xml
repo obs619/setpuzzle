@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <TextView 
+        android:id="@+id/txtGameOver"
+        android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_centerInParent="true"
+    	android:text="Game Over!" />
+    
+    <LinearLayout 
+        android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical"
+    	android:layout_centerHorizontal="true"
+    	android:layout_below="@+id/txtGameOver">
+        
+        <TextView 
+	        android:id="@+id/Score"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:layout_gravity="center"
+	    	android:text="Score" />
+        
+        
+        <TextView 
+	        android:id="@+id/txtActualScore"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:layout_gravity="center"
+	    	android:text="5" />
+        
+        <TextView 
+	        android:id="@+id/Best"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:layout_gravity="center"
+	    	android:text="Best" />
+        
+        
+        <TextView 
+	        android:id="@+id/txtBest"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:layout_gravity="center"
+	    	android:text="20" />
+        
+        <Button 
+            android:id="@+id/btnHome"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:layout_gravity="center"
+	    	android:onClick="clickHome"
+            android:text="Home"
+            />
+        
+        <Button 
+            android:id="@+id/btnPlayAgain"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:layout_gravity="center"
+	    	android:onClick="clickPlayAgain"
+            android:text="Play Again"
+            />
+        
+    </LinearLayout>
+       
+    
+    
+    
+
+</RelativeLayout>
