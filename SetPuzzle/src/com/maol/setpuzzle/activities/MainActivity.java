@@ -154,7 +154,7 @@ public class MainActivity extends ActionBarActivity {
     
     public void createCountDownTimer() {
     	
-    	countdownTimer = new CountDownTimer(initialTimeStart, 100) {
+    	countdownTimer = new CountDownTimer(initialTimeStart, 250) {
 
             public void onTick(long millisUntilFinished) {
 
@@ -172,7 +172,6 @@ public class MainActivity extends ActionBarActivity {
                         second="0"+(millisUntilFinished/1000)%60;
                     
                     txtTimer.setText(minute+":"+second);
-                    startedTimeOnCreate = true;
                 }
             	
             }
@@ -182,6 +181,7 @@ public class MainActivity extends ActionBarActivity {
             	Intent intent = new Intent(MainActivity.this, GameOverActivity.class);
             	intent.putExtra("playerscore", score);
             	startActivity(intent);
+            	overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             	finish();
             }
          }.start();
@@ -190,7 +190,7 @@ public class MainActivity extends ActionBarActivity {
     
     public void createCountDownTimerOnResume() {
     	
-    		countdownTimer = new CountDownTimer(totalTimeLeft, 1000) {
+    		countdownTimer = new CountDownTimer(totalTimeLeft, 250) {
 
                 public void onTick(long millisUntilFinished) {
 
@@ -216,6 +216,7 @@ public class MainActivity extends ActionBarActivity {
                 	Intent intent = new Intent(MainActivity.this, GameOverActivity.class);
                 	intent.putExtra("playerscore", score);
                 	startActivity(intent);
+                	overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 	finish();
                 }
              }.start();
