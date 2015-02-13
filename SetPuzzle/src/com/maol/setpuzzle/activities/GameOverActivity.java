@@ -2,6 +2,7 @@ package com.maol.setpuzzle.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -34,6 +35,20 @@ public class GameOverActivity extends Activity{
 		int playerScore = getIntent().getIntExtra("playerscore", 0);
 		
 		txtActualScore.setText(playerScore + "");
+		
+		SharedPreferences sp = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+		int bestScore = sp.getInt("best_score", 0);
+		
+		txtBestScore.setText(bestScore + "");
+		
+		if(playerScore > bestScore) {
+			SharedPreferences sp2 = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+			SharedPreferences.Editor editor = sp2.edit();
+			editor.putInt("best_score", playerScore);
+			editor.commit();
+			
+			txtBestScore.setText(playerScore + "");
+		}
 		
 	}
 	
