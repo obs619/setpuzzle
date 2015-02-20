@@ -3,25 +3,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:weightSum="2"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/btn_play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="clickPlay"
-        android:text="Play" />
+    <View
+        android:layout_width="match_parent"
+    	android:layout_height="0dp"
+    	android:layout_weight="1"
+    	></View>
+    
+    <RelativeLayout 
+        android:id="@+id/relativeLayoutButtons"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+    	android:layout_height="0dp"
+    	android:layout_weight="1">
+        
+        <View android:id="@+id/fakeView"
+	       android:layout_width="0dp"
+	       android:layout_height="0dp" 
+	       android:layout_centerInParent="true"/>
+        
+        <Button
+	        android:id="@+id/btn_play"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignLeft="@id/fakeView"
+	        android:onClick="clickPlay"
+	        android:text="Play" />
 
-    <Button
-        android:id="@+id/btn_highscore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="High Score" />
-
-    <Button
-        android:id="@+id/btn_help"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Help" />
+	    <Button
+	        android:id="@+id/btn_highscore"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignLeft="@id/fakeView"
+	        android:layout_below="@+id/btn_play"
+	        android:text="High Score" />
+	
+	    <Button
+	        android:id="@+id/btn_help"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignLeft="@id/fakeView"
+	        android:layout_below="@+id/btn_highscore"
+	        android:text="Help" />
+        
+    </RelativeLayout>
+    
+    
 
 </LinearLayout>

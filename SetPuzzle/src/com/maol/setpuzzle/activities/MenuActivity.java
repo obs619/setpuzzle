@@ -6,11 +6,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.maol.setpuzzle.R;
 
 public class MenuActivity extends Activity{
 
+	RelativeLayout relativeLayoutButtons;
+	Button btnPlay;
+	Button btnHighScore;
+	Button btnHelp;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +30,10 @@ public class MenuActivity extends Activity{
         
 		setContentView(R.layout.activity_menu);
 		
+		relativeLayoutButtons = (RelativeLayout) findViewById(R.id.relativeLayoutButtons);
+		btnPlay = (Button) findViewById(R.id.btn_play);
+		btnHighScore = (Button) findViewById(R.id.btn_highscore);
+		btnHelp = (Button) findViewById(R.id.btn_help);
 	}
 	
 	public void clickPlay(View v) {

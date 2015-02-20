@@ -23,7 +23,7 @@ public class GameOverActivity extends Activity{
 		
 		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getActionBar().hide();
-        
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
@@ -37,7 +37,7 @@ public class GameOverActivity extends Activity{
 		txtActualScore.setText(playerScore + "");
 		
 		SharedPreferences sp = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
-		int bestScore = sp.getInt("best_score", 0);
+		int bestScore = sp.getInt("best_score", playerScore);
 		
 		txtBestScore.setText(bestScore + "");
 		

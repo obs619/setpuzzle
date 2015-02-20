@@ -89,7 +89,7 @@ public class MainActivity extends ActionBarActivity {
 	int score = 0;
 	
 	CountDownTimer countdownTimer;
-	long initialTimeStart = 60 * 1000;
+	long initialTimeStart = 3 * 1000;
 	long totalTimeLeft = 0;
 	boolean startedTimeOnCreate = false;
 	
