@@ -1,58 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:weightSum="2"
-    android:orientation="vertical" >
-
-    <View
-        android:layout_width="match_parent"
-    	android:layout_height="0dp"
-    	android:layout_weight="1"
-    	></View>
-    
-    <RelativeLayout 
-        android:id="@+id/relativeLayoutButtons"
-        android:padding="16dp"
-        android:layout_width="match_parent"
-    	android:layout_height="0dp"
-    	android:layout_weight="1">
+    android:gravity="bottom"
+    android:background="#fff867"
+    android:padding="16dp">
         
-        <View android:id="@+id/fakeView"
-	       android:layout_width="0dp"
-	       android:layout_height="0dp" 
-	       android:layout_centerInParent="true"/>
-        
-        <Button
-	        android:id="@+id/btn_play"
+    	<View
+    	    android:id="@+id/btn_view"
+	        android:layout_width="0dp"
+	        android:layout_height="0dp"
+	        android:layout_centerInParent="true"
+    	    />
+    	
+    	<Button
+	        android:id="@+id/btn_filler1"
+	        android:visibility="invisible" 
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_alignParentRight="true"
-	        android:layout_alignLeft="@id/fakeView"
-	        android:onClick="clickPlay"
-	        android:text="Play" />
-
-	    <Button
-	        android:id="@+id/btn_highscore"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentRight="true"
-	        android:layout_alignLeft="@id/fakeView"
-	        android:layout_below="@+id/btn_play"
-	        android:text="High Score" />
-	
+	        android:layout_alignParentRight="true"/>
+	    
 	    <Button
 	        android:id="@+id/btn_help"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@+id/btn_view"
 	        android:layout_alignParentRight="true"
-	        android:layout_alignLeft="@id/fakeView"
-	        android:layout_below="@+id/btn_highscore"
+	        android:layout_below="@+id/btn_filler1"
 	        android:text="Help" />
         
-    </RelativeLayout>
-    
-    
-
-</LinearLayout>
+	    <Button
+	        android:id="@+id/btn_highscore"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@+id/btn_view"
+	        android:layout_below="@+id/btn_help"
+	        android:layout_alignParentRight="true"
+	        android:layout_marginTop="16dp"
+	        android:text="High Score" />
+	    
+	    
+	    <LinearLayout 
+	        android:id="@+id/layoutButtonPlay"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/btn_highscore"
+	        android:orientation="horizontal">
+	        
+	        <Button
+		        android:id="@+id/btn_fill"
+		        android:visibility="invisible"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="0.2"/>
+	        
+	        <Button
+		        android:id="@+id/btn_play"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:onClick="clickPlay"
+		        android:layout_weight="0.8"
+		        android:text="Play" />
+	        
+	    </LinearLayout>
+	    
+	    
+	    
+</RelativeLayout>

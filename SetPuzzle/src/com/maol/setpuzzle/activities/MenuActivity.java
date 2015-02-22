@@ -1,5 +1,7 @@
 package com.maol.setpuzzle.activities;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,13 +9,13 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 
 import com.maol.setpuzzle.R;
 
 public class MenuActivity extends Activity{
 
-	RelativeLayout relativeLayoutButtons;
+	LinearLayout layoutButtonPlay;
 	Button btnPlay;
 	Button btnHighScore;
 	Button btnHelp;
@@ -30,10 +32,23 @@ public class MenuActivity extends Activity{
         
 		setContentView(R.layout.activity_menu);
 		
-		relativeLayoutButtons = (RelativeLayout) findViewById(R.id.relativeLayoutButtons);
+		layoutButtonPlay = (LinearLayout) findViewById(R.id.layoutButtonPlay);
 		btnPlay = (Button) findViewById(R.id.btn_play);
 		btnHighScore = (Button) findViewById(R.id.btn_highscore);
 		btnHelp = (Button) findViewById(R.id.btn_help);
+		
+		AnimatorSet anim = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.drawable.rotate_button);
+		anim.setTarget(btnHelp);
+		anim.start();
+		
+		anim = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.drawable.rotate_button);
+		anim.setTarget(btnHighScore);
+		anim.start();
+		
+		anim = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.drawable.rotate_button);
+		anim.setTarget(layoutButtonPlay);
+		anim.start();
+
 	}
 	
 	public void clickPlay(View v) {
