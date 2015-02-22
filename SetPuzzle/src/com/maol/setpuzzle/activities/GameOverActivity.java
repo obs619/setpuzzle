@@ -39,7 +39,6 @@ public class GameOverActivity extends Activity{
 		SharedPreferences sp = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
 		int bestScore = sp.getInt("best_score", playerScore);
 		
-		txtBestScore.setText(bestScore + "");
 		
 		if(playerScore > bestScore) {
 			SharedPreferences sp2 = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
@@ -48,8 +47,16 @@ public class GameOverActivity extends Activity{
 			editor.commit();
 			
 			txtBestScore.setText(playerScore + "");
+		}else if(playerScore == bestScore) {
+			SharedPreferences sp2 = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+			SharedPreferences.Editor editor = sp2.edit();
+			editor.putInt("best_score", playerScore);
+			editor.commit();
+			
+			txtBestScore.setText(playerScore + "");
+		}else if(playerScore < bestScore) {
+			txtBestScore.setText(bestScore + "");
 		}
-		
 	}
 	
 	@Override
