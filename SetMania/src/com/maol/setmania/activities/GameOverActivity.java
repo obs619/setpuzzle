@@ -9,13 +9,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.google.android.gms.games.Games;
 import com.maol.setmania.R;
 
 public class GameOverActivity extends Activity{
 	
 	TextView txtActualScore;
 	TextView txtBestScore;
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,8 @@ public class GameOverActivity extends Activity{
 		}else if(playerScore < bestScore) {
 			txtBestScore.setText(bestScore + "");
 		}
+		if(MenuActivity.mGoogleApiClient.isConnected())
+			Games.Leaderboards.submitScore(MenuActivity.mGoogleApiClient, getString(R.string.leaderboard_id), playerScore);
 	}
 	
 	@Override
@@ -75,6 +77,5 @@ public class GameOverActivity extends Activity{
 		overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);		
 		finish();
 	}
-	
-	
+
 }
