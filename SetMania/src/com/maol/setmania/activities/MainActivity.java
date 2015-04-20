@@ -52,35 +52,35 @@ public class MainActivity extends ActionBarActivity {
     
 	GridView listViewAnswersSolved;
 	private int[] picturesList = {
+			R.drawable.blue_bone_blue_selector,
+			R.drawable.blue_bone_orange_selector,
+			R.drawable.blue_bone_pink_selector,
+			R.drawable.blue_cat_blue_selector,
+			R.drawable.blue_cat_orange_selector,
+			R.drawable.blue_cat_pink_selector,
+			R.drawable.blue_mouse_blue_selector,
+			R.drawable.blue_mouse_orange_selector,
+			R.drawable.blue_mouse_pink_selector,
+			
+			R.drawable.orange_bone_blue_selector,
 			R.drawable.orange_bone_orange_selector,
-			R.drawable.orange_bone_red_selector,
-			R.drawable.orange_bone_yellow_selector,
+			R.drawable.orange_bone_pink_selector,
+			R.drawable.orange_cat_blue_selector,
 			R.drawable.orange_cat_orange_selector,
-			R.drawable.orange_cat_red_selector,
-			R.drawable.orange_cat_yellow_selector,
+			R.drawable.orange_cat_pink_selector,
+			R.drawable.orange_mouse_blue_selector,
 			R.drawable.orange_mouse_orange_selector,
-			R.drawable.orange_mouse_red_selector,
-			R.drawable.orange_mouse_yellow_selector,
+			R.drawable.orange_mouse_pink_selector,
 			
-			R.drawable.red_bone_orange_selector,
-			R.drawable.red_bone_red_selector,
-			R.drawable.red_bone_yellow_selector,
-			R.drawable.red_cat_orange_selector,
-			R.drawable.red_cat_red_selector,
-			R.drawable.red_cat_yellow_selector,
-			R.drawable.red_mouse_orange_selector,
-			R.drawable.red_mouse_red_selector,
-			R.drawable.red_mouse_yellow_selector,
-			
-			R.drawable.yellow_bone_orange_selector,
-			R.drawable.yellow_bone_red_selector,
-			R.drawable.yellow_bone_yellow_selector,
-			R.drawable.yellow_cat_orange_selector,
-			R.drawable.yellow_cat_red_selector,
-			R.drawable.yellow_cat_yellow_selector,
-			R.drawable.yellow_mouse_orange_selector,
-			R.drawable.yellow_mouse_red_selector,
-			R.drawable.yellow_mouse_yellow_selector
+			R.drawable.pink_bone_blue_selector,
+			R.drawable.pink_bone_orange_selector,
+			R.drawable.pink_bone_pink_selector,
+			R.drawable.pink_cat_blue_selector,
+			R.drawable.pink_cat_orange_selector,
+			R.drawable.pink_cat_pink_selector,
+			R.drawable.pink_mouse_blue_selector,
+			R.drawable.pink_mouse_orange_selector,
+			R.drawable.pink_mouse_pink_selector
 	};
 
 	List<Answer> lstAnswersSolved;
@@ -89,7 +89,7 @@ public class MainActivity extends ActionBarActivity {
 	int score = 0;
 	
 	CountDownTimer countdownTimer;
-	long initialTimeStart = 3 * 1000;
+	long initialTimeStart = 3 * 60000;
 	long totalTimeLeft = 0;
 	boolean startedTimeOnCreate = false;
 	

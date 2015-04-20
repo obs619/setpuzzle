@@ -1,7 +1,5 @@
 package com.maol.setmania.activities;
 
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,11 +44,11 @@ public class MenuActivity extends Activity
         
 		setContentView(R.layout.activity_menu);
 		
-		layoutButtonPlay = (LinearLayout) findViewById(R.id.layoutButtonPlay);
+		//layoutButtonPlay = (LinearLayout) findViewById(R.id.layoutButtonPlay);
 		btnPlay = (Button) findViewById(R.id.btn_play);
 		btnHighScore = (Button) findViewById(R.id.btn_highscore);
 		btnHelp = (Button) findViewById(R.id.btn_help);
-		
+		/*
 		AnimatorSet anim = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.drawable.rotate_button);
 		anim.setTarget(btnHelp);
 		anim.start();
@@ -60,9 +58,9 @@ public class MenuActivity extends Activity
 		anim.start();
 		
 		anim = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.drawable.rotate_button);
-		anim.setTarget(layoutButtonPlay);
+		anim.setTarget(btnPlay);
 		anim.start();
-
+*/
 		
 		mGoogleApiClient = new GoogleApiClient.Builder(this)
         .addConnectionCallbacks(this)
