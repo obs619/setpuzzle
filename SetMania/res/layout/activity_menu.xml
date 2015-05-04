@@ -1,49 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
     android:background="@drawable/bg"
     android:padding="16dp">
             
-    	<ImageView
-    	    android:id="@+id/btn_view"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:background="@drawable/logo"
-	        android:layout_marginTop="48dp"
-	        android:layout_centerInParent="true"
-	        android:layout_alignParentTop="true"
-    	    />
-	    
-	    <Button
-	        android:id="@+id/btn_help"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:onClick="clickHelp"
-	        android:layout_alignParentRight="true"
-	        android:layout_marginBottom="8dp"
-	        android:layout_above="@+id/btn_highscore"
-	        android:background="@drawable/help_selector" />
+    
+    <View 
+         android:layout_width="match_parent"
+    	 android:layout_height="0dp"
+    	 android:layout_weight="0.5"/>
         
-	    <Button
-	        android:id="@+id/btn_highscore"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:onClick="clickHighScore"
-	        android:layout_alignParentRight="true"
-	        android:layout_above="@+id/btn_play"
-	        android:layout_marginBottom="8dp"
-	        android:background="@drawable/highscore_selector"/>
-	    
-	        
+        <LinearLayout 
+	        android:layout_width="match_parent"
+	    	android:layout_height="0dp"
+	    	android:layout_weight="0.2"
+	        android:orientation="horizontal">
+            
+            <Button
+		        android:id="@+id/btn_help"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:onClick="clickHelp"
+		        android:layout_margin="4dp"
+		        android:layout_weight="1"
+		        android:background="@drawable/help_selector" />
+        
+		    <Button
+		        android:id="@+id/btn_highscore"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:onClick="clickHighScore"
+		        android:layout_margin="4dp"
+		        android:layout_weight="1"
+		        android:background="@drawable/highscore_selector"/>
+            
+            
+        </LinearLayout>
+        
         <Button
-	        android:id="@+id/btn_play"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:onClick="clickPlay"
-	        android:layout_alignParentRight="true"
-	        android:layout_marginBottom="8dp"
-	        android:layout_alignParentBottom="true"
-	        android:background="@drawable/play_selector" />
+	            android:id="@+id/btn_play"
+	            android:layout_width="match_parent"
+	            android:layout_height="0dp"
+	            android:layout_weight="0.2"
+	            android:layout_margin="4dp"
+	            android:background="@drawable/play_selector"
+	            android:onClick="clickPlay" />
+        
+        <ToggleButton
+	            android:id="@+id/btn_music"
+	            android:textOff=""
+	            android:textOn=""
+	            android:checked="true"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/music_selector"
+	            android:onClick="clickMusic" />
 	        
-</RelativeLayout>
+</LinearLayout>

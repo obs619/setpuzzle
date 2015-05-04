@@ -6,7 +6,9 @@ import java.util.Random;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
@@ -14,8 +16,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -27,13 +29,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.games.Games;
 import com.maol.setmania.R;
 import com.maol.setmania.models.Answer;
 import com.maol.setmania.models.Picture;
 import com.maol.setmania.service.SetServiceImpl;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
 	Activity activity;
 	int selectedCounter = 0;
@@ -89,7 +92,7 @@ public class MainActivity extends ActionBarActivity {
 	int score = 0;
 	
 	CountDownTimer countdownTimer;
-	long initialTimeStart = 3 * 60000;
+	long initialTimeStart = 1 * 60000;
 	long totalTimeLeft = 0;
 	boolean startedTimeOnCreate = false;
 	
@@ -178,15 +181,99 @@ public class MainActivity extends ActionBarActivity {
             public void onFinish() {
             	txtTimer.setText("00:00");
 
-            	Intent intent = new Intent(MainActivity.this, GameOverActivity.class);
-            	intent.putExtra("playerscore", score);
-            	startActivity(intent);
-            	overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            	finish();
+            	showGameOverDialog(score);
+            	
             }
          }.start();
     }
 
+    public void showGameOverDialog(int score) {
+    	Dialog dialog = new Dialog(this);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.dialog_gameover);
+		dialog.setCancelable(false);
+		
+		TextView txtGameOver = (TextView) dialog.findViewById(R.id.txtGameOver); 
+		TextView txtScore = (TextView) dialog.findViewById(R.id.Score); 
+		TextView txtBest = (TextView) dialog.findViewById(R.id.Best); 
+		
+		txtGameOver.setTypeface(tfGadugi);
+		txtScore.setTypeface(tfGadugi);
+		txtBest.setTypeface(tfGadugi);
+		
+		
+		TextView txtActualScore = (TextView) dialog.findViewById(R.id.txtActualScore); 
+		TextView txtBestScore = (TextView) dialog.findViewById(R.id.txtBest);
+
+		txtActualScore.setTypeface(tfGadugi);
+		txtBestScore.setTypeface(tfGadugi);
+		
+		txtActualScore.setText(score + "");
+		
+		SharedPreferences sp = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+		int bestScore = sp.getInt("best_score", score);
+		
+		
+		if(score > bestScore) {
+			SharedPreferences sp2 = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+			SharedPreferences.Editor editor = sp2.edit();
+			editor.putInt("best_score", score);
+			editor.commit();
+			
+			txtBestScore.setText(score + "");
+		}else if(score == bestScore) {
+			SharedPreferences sp2 = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+			SharedPreferences.Editor editor = sp2.edit();
+			editor.putInt("best_score", score);
+			editor.commit();
+			
+			txtBestScore.setText(score + "");
+		}else if(score < bestScore) {
+			txtBestScore.setText(bestScore + "");
+		}
+		
+		if(MenuActivity.mGoogleApiClient.isConnected())
+			Games.Leaderboards.submitScore(MenuActivity.mGoogleApiClient, getString(R.string.leaderboard_id), score);
+		
+		Button btnHome = (Button) dialog.findViewById(R.id.btnHome);
+		Button btnLeader = (Button) dialog.findViewById(R.id.btnLeader);
+		Button btnReplay = (Button) dialog.findViewById(R.id.btnPlayAgain);
+		
+		
+		btnHome.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+            	startActivity(intent);
+            	overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            	finish();
+			}
+		});
+		
+		btnLeader.setOnClickListener(new OnClickListener() {
+					
+			@Override
+			public void onClick(View v) {
+				startActivityForResult(Games.Leaderboards.getLeaderboardIntent(MenuActivity.mGoogleApiClient,
+				        getString(R.string.leaderboard_id)), 0);
+				overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+			}
+		});
+		
+		btnReplay.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+            	overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            	finish();
+            	startActivity(getIntent());
+			}
+		});
+		
+		dialog.show();
+    }
+    
     
     public void createCountDownTimerOnResume() {
     	
@@ -213,11 +300,7 @@ public class MainActivity extends ActionBarActivity {
                 public void onFinish() {
                 	txtTimer.setText("00:00");
                 	
-                	Intent intent = new Intent(MainActivity.this, GameOverActivity.class);
-                	intent.putExtra("playerscore", score);
-                	startActivity(intent);
-                	overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                	finish();
+                	showGameOverDialog(score);
                 }
              }.start();
     }

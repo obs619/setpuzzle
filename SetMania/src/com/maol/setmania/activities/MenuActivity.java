@@ -8,6 +8,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -48,19 +50,6 @@ public class MenuActivity extends Activity
 		btnPlay = (Button) findViewById(R.id.btn_play);
 		btnHighScore = (Button) findViewById(R.id.btn_highscore);
 		btnHelp = (Button) findViewById(R.id.btn_help);
-		/*
-		AnimatorSet anim = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.drawable.rotate_button);
-		anim.setTarget(btnHelp);
-		anim.start();
-		
-		anim = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.drawable.rotate_button);
-		anim.setTarget(btnHighScore);
-		anim.start();
-		
-		anim = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.drawable.rotate_button);
-		anim.setTarget(btnPlay);
-		anim.start();
-*/
 		
 		mGoogleApiClient = new GoogleApiClient.Builder(this)
         .addConnectionCallbacks(this)
@@ -84,7 +73,20 @@ public class MenuActivity extends Activity
 	}
 	
 	public void clickHelp(View v) {
+		Intent i = new Intent(this, HelpActivity.class);
+		startActivity(i);
+		overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+	}
+	
+	public void clickMusic(View v) {
+		boolean on = ((ToggleButton) v).isChecked();
+	    if (on) {
+	    	Toast.makeText(this, "Music is on", Toast.LENGTH_SHORT).show();
 
+	    } else {
+	    	Toast.makeText(this, "Music is off", Toast.LENGTH_SHORT).show();
+
+	   }
 	}
 
 	@Override

@@ -33,7 +33,7 @@
    			android:configChanges="orientation|keyboardHidden" />
         
         <activity
-            android:name=".activities.GameOverActivity"
+            android:name=".activities.HelpActivity"
             android:screenOrientation="portrait"
    			android:configChanges="orientation|keyboardHidden" />
         
