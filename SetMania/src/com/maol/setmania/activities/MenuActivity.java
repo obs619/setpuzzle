@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
@@ -46,7 +48,10 @@ public class MenuActivity extends Activity
         
 		setContentView(R.layout.activity_menu);
 		
-		//layoutButtonPlay = (LinearLayout) findViewById(R.id.layoutButtonPlay);
+		AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+		
 		btnPlay = (Button) findViewById(R.id.btn_play);
 		btnHighScore = (Button) findViewById(R.id.btn_highscore);
 		btnHelp = (Button) findViewById(R.id.btn_help);
