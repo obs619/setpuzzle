@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -99,6 +100,9 @@ public class MainActivity extends Activity {
 	long totalTimeLeft = 0;
 	boolean startedTimeOnCreate = false;
 	
+	MediaPlayer mpCorrect;
+	MediaPlayer mpWrong;
+	
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +132,9 @@ public class MainActivity extends Activity {
         
         txtTimer.setTypeface(tfPrototype);
         txtScore.setTypeface(tfPrototype);
+        
+        mpCorrect = MediaPlayer.create(this, R.raw.correct);
+        mpWrong = MediaPlayer.create(this, R.raw.wrong);
         
         lstAnswersSolved = new ArrayList<Answer>();
         
@@ -412,7 +419,7 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);   
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);  
     }
     
     @Override
@@ -588,6 +595,7 @@ public class MainActivity extends Activity {
             	            	Answer a = new Answer(getSelectedButtons());
                     			
                     			if(ssi.isCorrectAnswer(a)) {
+                    				mpCorrect.start();
                     				score++;
                     				for(Answer answer : lstAnswersSolved) {
                     					if(answer.toString().equals(a.toString()))
@@ -610,6 +618,7 @@ public class MainActivity extends Activity {
                         			}
                         			
                     			}else {
+                    				mpWrong.start();
                     				score--;
                     				unselectButtons();
                     				txtScore.setText("Score: " + score);
@@ -671,4 +680,5 @@ public class MainActivity extends Activity {
         
         unselectButtons();
     }
+    
 }
