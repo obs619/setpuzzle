@@ -2,13 +2,13 @@ package com.maol.setmania.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.ads.AdRequest;
@@ -27,7 +27,7 @@ public class MenuActivity extends Activity
 	Button btnPlay;
 	Button btnHighScore;
 	Button btnHelp;
-	
+	ToggleButton btnMusic;
 	public static GoogleApiClient mGoogleApiClient;
 	
 	private static int RC_SIGN_IN = 9001;
@@ -55,6 +55,7 @@ public class MenuActivity extends Activity
 		btnPlay = (Button) findViewById(R.id.btn_play);
 		btnHighScore = (Button) findViewById(R.id.btn_highscore);
 		btnHelp = (Button) findViewById(R.id.btn_help);
+		btnMusic = (ToggleButton) findViewById(R.id.btn_music);
 		
 		mGoogleApiClient = new GoogleApiClient.Builder(this)
         .addConnectionCallbacks(this)
@@ -62,6 +63,16 @@ public class MenuActivity extends Activity
         .addApi(Games.API).addScope(Games.SCOPE_GAMES)
         // add other APIs and scopes here as needed
         .build();
+		
+		
+		SharedPreferences sp = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+		int music = sp.getInt("music", 1);
+		
+		if(music == 1) {
+			btnMusic.setChecked(true);
+		} else {
+			btnMusic.setChecked(false);
+		}
 		
 	}
 	
@@ -86,11 +97,16 @@ public class MenuActivity extends Activity
 	public void clickMusic(View v) {
 		boolean on = ((ToggleButton) v).isChecked();
 	    if (on) {
-	    	Toast.makeText(this, "Music is on", Toast.LENGTH_SHORT).show();
+	    	SharedPreferences sp2 = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+			SharedPreferences.Editor editor = sp2.edit();
+			editor.putInt("music", 1);
+			editor.commit();
 
 	    } else {
-	    	Toast.makeText(this, "Music is off", Toast.LENGTH_SHORT).show();
-
+	    	SharedPreferences sp2 = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+			SharedPreferences.Editor editor = sp2.edit();
+			editor.putInt("music", 0);
+			editor.commit();
 	   }
 	}
 

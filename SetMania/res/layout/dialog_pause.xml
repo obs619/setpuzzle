@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center" >
+    
+    
+    <TextView 
+        android:id="@+id/txtPause"
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:gravity="center"
+    	android:ellipsize="none"
+    	android:singleLine="true"
+    	android:layout_marginTop="16dp"
+    	android:layout_marginBottom="16dp"
+    	android:textColor="#f7b11a"
+    	android:maxLines="1"
+    	android:textAppearance="?android:attr/textAppearanceLarge"
+    	android:textSize="20sp"
+    	android:text="GAME PAUSED" />
+    
+    <LinearLayout 
+        android:id="@+id/layoutScores"
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+	    android:layout_marginBottom="16dp"
+	    android:weightSum="1"
+    	android:layout_below="@+id/txtPause">
+        
+            <LinearLayout 
+		        android:layout_width="0dp"
+		    	android:layout_height="wrap_content"
+		    	android:layout_weight="0.5"
+		    	android:orientation="vertical">
+    	
+            	<TextView
+			        android:id="@+id/Score"
+			        android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"
+			    	android:textSize="20sp"
+			    	android:textColor="#f7b11a"
+			    	android:maxLines="1"
+			    	android:layout_gravity="center"
+			    	android:text="Score" />
+		        
+		        <TextView  
+			        android:id="@+id/txtActualScore"
+			        android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"
+			    	android:textSize="30sp"
+			    	android:textColor="#f7b11a"
+			    	android:maxLines="1"
+			    	android:textStyle="bold"
+			    	android:layout_gravity="center"
+			    	android:text="5" />
+            
+            </LinearLayout>
+            
+            <LinearLayout 
+		        android:layout_width="0dp"
+		    	android:layout_height="wrap_content"
+		    	android:layout_weight="0.5"
+		    	android:orientation="vertical">
+    	
+                <TextView
+			        android:id="@+id/Best"
+			        android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"
+			    	android:textSize="20sp"
+			    	android:textColor="#f7b11a"
+			    	android:maxLines="1"
+			    	android:layout_gravity="center"
+			    	android:text="Best" />
+		        
+		        
+		        <TextView 
+			        android:id="@+id/txtBest"
+			        android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"
+			    	android:textSize="30sp"
+			    	android:textColor="#f7b11a"
+			    	android:maxLines="1"
+			    	android:textStyle="bold"
+			    	android:layout_gravity="center"
+			    	android:text="20" />
+                
+            </LinearLayout>
+            
+        
+    </LinearLayout>
+       
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/layoutScores" >
+        
+        <Button 
+            android:id="@+id/btnHome"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:layout_weight="1"
+	    	android:layout_marginTop="4dp"
+	    	android:layout_marginLeft="4dp"
+	    	android:layout_marginRight="4dp"
+        	android:layout_marginBottom="16dp"
+            android:background="@drawable/go_home_selector"
+            />
+        
+        <Button 
+            android:id="@+id/btnResume"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:layout_weight="1"
+	    	android:layout_marginTop="4dp"
+	    	android:layout_marginLeft="4dp"
+	    	android:layout_marginRight="4dp"
+        	android:layout_marginBottom="16dp"
+            android:background="@drawable/resume_selector"
+            />
+        
+        <Button 
+            android:id="@+id/btnPlayAgain"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:layout_weight="1"
+	    	android:layout_marginTop="4dp"
+	    	android:layout_marginLeft="4dp"
+	    	android:layout_marginRight="4dp"
+        	android:layout_marginBottom="16dp"
+            android:background="@drawable/go_replay_selector"
+            />
+        
+        
+    </LinearLayout>
+    
+
+</RelativeLayout>

@@ -16,6 +16,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -52,6 +53,8 @@ public class MainActivity extends Activity {
     Typeface tfPrototype;
 	
     TableLayout tableLayout;
+    
+    Boolean isGamePaused = false;
     
 	GridView listViewAnswersSolved;
 	private int[] picturesList = {
@@ -150,6 +153,7 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
             	createCountDownTimer();
+            	startedTimeOnCreate = true;
             }
         }, 1000);
     
@@ -164,7 +168,7 @@ public class MainActivity extends Activity {
             	if (Math.round((float)millisUntilFinished / 1000.0f) != totalTimeLeft)
                 {  
             		totalTimeLeft = Math.round((float)millisUntilFinished / 1000.0f);
-            		
+            		Log.e("e",totalTimeLeft + "");
             		String minute=""+(millisUntilFinished/1000)/60;
                     String second=""+(millisUntilFinished/1000)%60;
                     
@@ -175,6 +179,7 @@ public class MainActivity extends Activity {
                         second="0"+(millisUntilFinished/1000)%60;
                     
                     txtTimer.setText(minute+":"+second);
+                    
                 }
             	
             }
@@ -197,7 +202,7 @@ public class MainActivity extends Activity {
 		TextView txtScore = (TextView) dialog.findViewById(R.id.Score); 
 		TextView txtBest = (TextView) dialog.findViewById(R.id.Best); 
 		
-		txtGameOver.setTypeface(tfGadugi);
+		txtGameOver.setTypeface(tfPrototype);
 		txtScore.setTypeface(tfGadugi);
 		txtBest.setTypeface(tfGadugi);
 		
@@ -274,10 +279,79 @@ public class MainActivity extends Activity {
 		dialog.show();
     }
     
-    
+    public void showPauseDialog(int score) {
+    	final Dialog dialog = new Dialog(this);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.dialog_pause);
+		dialog.setCancelable(false);
+		
+		TextView txtPause = (TextView) dialog.findViewById(R.id.txtPause); 
+		TextView txtScore = (TextView) dialog.findViewById(R.id.Score); 
+		TextView txtBest = (TextView) dialog.findViewById(R.id.Best); 
+		
+		txtPause.setTypeface(tfPrototype);
+		txtScore.setTypeface(tfGadugi);
+		txtBest.setTypeface(tfGadugi);
+		
+		
+		TextView txtActualScore = (TextView) dialog.findViewById(R.id.txtActualScore); 
+		TextView txtBestScore = (TextView) dialog.findViewById(R.id.txtBest);
+
+		txtActualScore.setTypeface(tfGadugi);
+		txtBestScore.setTypeface(tfGadugi);
+		
+		txtActualScore.setText(score + "");
+		
+		SharedPreferences sp = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+		int bestScore = sp.getInt("best_score", score);
+		
+		txtBestScore.setText(bestScore + "");
+		
+		
+		Button btnHome = (Button) dialog.findViewById(R.id.btnHome);
+		Button btnResume = (Button) dialog.findViewById(R.id.btnResume);
+		Button btnReplay = (Button) dialog.findViewById(R.id.btnPlayAgain);
+		
+		
+		btnHome.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+            	startActivity(intent);
+            	overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            	finish();
+			}
+		});
+		
+		btnResume.setOnClickListener(new OnClickListener() {
+					
+			@Override
+			public void onClick(View v) {
+				dialog.cancel();
+
+		    	createCountDownTimerOnResume();
+		    	tableLayout.setVisibility(View.VISIBLE);
+		    	isGamePaused = false;
+			}
+		});
+		
+		btnReplay.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+            	overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            	finish();
+            	startActivity(getIntent());
+			}
+		});
+		
+		dialog.show();
+    }
+       
     public void createCountDownTimerOnResume() {
     	
-    		countdownTimer = new CountDownTimer(totalTimeLeft, 250) {
+    		countdownTimer = new CountDownTimer(totalTimeLeft * 1000, 250) {
 
                 public void onTick(long millisUntilFinished) {
 
@@ -305,6 +379,36 @@ public class MainActivity extends Activity {
              }.start();
     }
     
+    public void createCountDownTimerOnNewPuzzle() {
+    	
+		countdownTimer = new CountDownTimer(totalTimeLeft * 1000 + 30000, 250) {
+
+            public void onTick(long millisUntilFinished) {
+
+            	if (Math.round((float)millisUntilFinished / 1000.0f) != totalTimeLeft)
+                {  
+            		totalTimeLeft = Math.round((float)millisUntilFinished / 1000.0f);
+            		
+            		String minute=""+(millisUntilFinished/1000)/60;
+                    String second=""+(millisUntilFinished/1000)%60;
+                    
+                    if((millisUntilFinished/1000)/60<10)
+                        minute="0"+(millisUntilFinished/1000)/60;
+                    
+                    if((millisUntilFinished/1000)%60<10)
+                        second="0"+(millisUntilFinished/1000)%60;
+                    
+                    txtTimer.setText(minute+":"+second);
+                }
+            }
+            public void onFinish() {
+            	txtTimer.setText("00:00");
+            	
+            	showGameOverDialog(score);
+            }
+         }.start();
+}
+    
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -314,17 +418,18 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause() {
     	super.onPause();
-    	if(countdownTimer != null)
-    		countdownTimer.cancel();
+    	if(!isGamePaused)
+	    	if(countdownTimer != null)
+	    		countdownTimer.cancel();
     }
     
     @Override
     protected void onResume() {
     	super.onResume();
-    	if(startedTimeOnCreate) 
-    		createCountDownTimerOnResume();
+    	if(!isGamePaused)
+	    	if(startedTimeOnCreate) 
+	    		createCountDownTimerOnResume();
     }
-    
     
     public void clickCheat(View v) {
 		String answers = "";
@@ -333,6 +438,15 @@ public class MainActivity extends Activity {
 		Toast.makeText(this, answers, Toast.LENGTH_LONG).show();
 	}
 
+    public void clickPause(View v) {
+		tableLayout.setVisibility(View.INVISIBLE);
+		countdownTimer.cancel();
+		isGamePaused = true;
+    	showPauseDialog(score);
+    	
+	}
+    
+    
 	private void setOnClickListenersAndInitPictureList() {
         TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout);
         for(int i = 0; i < tableLayout.getChildCount(); i++) {
@@ -484,14 +598,14 @@ public class MainActivity extends Activity {
                         			txtScore.setText("Score: " + score);
                         			
                         			if(ssi.getCorrectAnswers().size() == 0) {
-                        				Toast.makeText(activity, "Congrats! Timer reset! Move on to next puzzle!", Toast.LENGTH_LONG).show();
+                        				Toast.makeText(activity, "Congrats! +30 seconds! Move on to next puzzle!", Toast.LENGTH_LONG).show();
                         				
                         				new Handler().postDelayed(new Runnable(){
                             	            @Override
                             	            public void run() {
                                 				refreshGame();
                             	            	}
-                            	            }, 2000);
+                            	            }, 1000);
                         				
                         			}
                         			
@@ -532,6 +646,10 @@ public class MainActivity extends Activity {
     
     
     private void refreshGame() {
+    	
+    	countdownTimer.cancel();
+    	createCountDownTimerOnNewPuzzle();
+        	
     	pictures = new Picture[9];
     	
         shuffleIntArray(picturesList);
