@@ -7,7 +7,6 @@ import java.util.Random;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -275,8 +274,6 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(MainActivity.this, MenuActivity.class);
-            	startActivity(intent);
             	overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             	finish();
 			}
@@ -351,8 +348,6 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(MainActivity.this, MenuActivity.class);
-            	startActivity(intent);
             	overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             	finish();
 			}
@@ -367,6 +362,8 @@ public class MainActivity extends Activity {
 		    	createCountDownTimerOnResume();
 		    	tableLayout.setVisibility(View.VISIBLE);
 		    	isGamePaused = false;
+		    	
+    	        tableLayout.setBackgroundColor(Color.WHITE);
 			}
 		});
 		
@@ -683,9 +680,9 @@ public class MainActivity extends Activity {
                     				
                     	            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
                         	            tableLayout.setBackground(ad);
-                    	           }else {
-                    	        	   tableLayout.setBackgroundDrawable(ad);
-                    	           }
+                    	            }else {
+                    	        	    tableLayout.setBackgroundDrawable(ad);
+                    	            }
                     	            
                     	            ad.start();
                     				
