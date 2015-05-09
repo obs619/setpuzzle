@@ -103,6 +103,9 @@ public class MainActivity extends Activity {
 	MediaPlayer mpCorrect;
 	MediaPlayer mpWrong;
 	
+	MediaPlayer mpMusic;
+	int medialength = 0;
+	
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +138,14 @@ public class MainActivity extends Activity {
         
         mpCorrect = MediaPlayer.create(this, R.raw.correct);
         mpWrong = MediaPlayer.create(this, R.raw.wrong);
+        mpMusic = MediaPlayer.create(this, R.raw.music);
+        mpMusic.setLooping(true);
+        
+		SharedPreferences sp = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+		int music = sp.getInt("music", 1);
+		
+		if(music == 1)
+			mpMusic.start();
         
         lstAnswersSolved = new ArrayList<Answer>();
         
@@ -428,6 +439,11 @@ public class MainActivity extends Activity {
     	if(!isGamePaused)
 	    	if(countdownTimer != null)
 	    		countdownTimer.cancel();
+    	
+    	if(mpMusic.isPlaying()) {
+    		mpMusic.pause();
+			medialength = mpMusic.getCurrentPosition();
+		}
     }
     
     @Override
@@ -436,6 +452,14 @@ public class MainActivity extends Activity {
     	if(!isGamePaused)
 	    	if(startedTimeOnCreate) 
 	    		createCountDownTimerOnResume();
+    	
+    	SharedPreferences sp = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+		int music = sp.getInt("music", 1);
+		
+		if(music == 1) {
+			mpMusic.seekTo(medialength);
+			mpMusic.start();
+		}
     }
     
     public void clickCheat(View v) {
@@ -450,7 +474,6 @@ public class MainActivity extends Activity {
 		countdownTimer.cancel();
 		isGamePaused = true;
     	showPauseDialog(score);
-    	
 	}
     
     
@@ -595,7 +618,12 @@ public class MainActivity extends Activity {
             	            	Answer a = new Answer(getSelectedButtons());
                     			
                     			if(ssi.isCorrectAnswer(a)) {
-                    				mpCorrect.start();
+                    				SharedPreferences sp = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+                    				int music = sp.getInt("music", 1);
+                    				
+                    				if(music == 1) {
+                        				mpCorrect.start();
+                    				}
                     				score++;
                     				for(Answer answer : lstAnswersSolved) {
                     					if(answer.toString().equals(a.toString()))
@@ -618,7 +646,12 @@ public class MainActivity extends Activity {
                         			}
                         			
                     			}else {
-                    				mpWrong.start();
+                    				SharedPreferences sp = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+                    				int music = sp.getInt("music", 1);
+                    				
+                    				if(music == 1) {
+                        				mpWrong.start();
+                    				}
                     				score--;
                     				unselectButtons();
                     				txtScore.setText("Score: " + score);

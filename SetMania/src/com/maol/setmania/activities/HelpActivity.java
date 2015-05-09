@@ -2,6 +2,7 @@ package com.maol.setmania.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -29,5 +30,10 @@ public class HelpActivity extends Activity{
         super.onBackPressed();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);   
     }
+	
+	
+	public void clickBack(View v) {
+		onBackPressed();
+	}
 	
 }

@@ -3,7 +3,6 @@ package com.maol.setmania.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -37,9 +36,6 @@ public class MenuActivity extends Activity
 	private boolean mAutoStartSignInFlow = true;
 	private boolean mSignInClicked = false;
 	
-	MediaPlayer mp;
-	int medialength = 0;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,47 +64,14 @@ public class MenuActivity extends Activity
         // add other APIs and scopes here as needed
         .build();
 		
-		mp = MediaPlayer.create(this, R.raw.music);
-	    mp.setLooping(true);
 		SharedPreferences sp = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
 		int music = sp.getInt("music", 1);
 		
 		if(music == 1) {
 			btnMusic.setChecked(true);
-			mp.start();
-		} else {
+		}else {
 			btnMusic.setChecked(false);
 		}
-		
-	}
-	
-	@Override
-	protected void onPause() {
-		// TODO Auto-generated method stub
-		super.onPause();
-		if(mp.isPlaying()) {
-			mp.pause();
-			medialength = mp.getCurrentPosition();
-		}
-			
-	}
-	
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		
-		SharedPreferences sp = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
-		int music = sp.getInt("music", 1);
-		
-		if(music == 1) {
-			btnMusic.setChecked(true);
-			mp.seekTo(medialength);
-			mp.start();
-		} else {
-			btnMusic.setChecked(false);
-		}
-		
 		
 	}
 	
@@ -137,19 +100,11 @@ public class MenuActivity extends Activity
 			SharedPreferences.Editor editor = sp2.edit();
 			editor.putInt("music", 1);
 			editor.commit();
-			
-			mp = MediaPlayer.create(this, R.raw.music);
-		    mp.setLooping(true);
-			
-		    if(!mp.isPlaying())
-		    	mp.start();
 	    } else {
 	    	SharedPreferences sp2 = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
 			SharedPreferences.Editor editor = sp2.edit();
 			editor.putInt("music", 0);
 			editor.commit();
-			if(mp.isPlaying())
-				mp.stop();
 	   }
 	}
 
