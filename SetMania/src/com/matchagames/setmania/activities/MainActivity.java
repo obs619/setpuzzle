@@ -1,6 +1,7 @@
 package com.matchagames.setmania.activities;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -21,6 +22,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TableLayout;
@@ -48,6 +50,8 @@ public class MainActivity extends Activity {
 	
 	TextView txtTimer;
 	TextView txtScore;
+	TextView txtBonusTime;
+	
 
     Typeface tfGadugi;
     Typeface tfGadugib;
@@ -105,6 +109,8 @@ public class MainActivity extends Activity {
 	
 	MediaPlayer mpMusic;
 	int medialength = 0;
+
+	MediaPlayer mpGoodjob;
 	
 	InterstitialAd interstitialAD;
 	
@@ -135,6 +141,7 @@ public class MainActivity extends Activity {
         
         txtTimer = (TextView)findViewById(R.id.txtTimer);
         txtScore = (TextView)findViewById(R.id.txtScore);
+        txtBonusTime = (TextView)findViewById(R.id.txtBonusTime);
         listViewAnswersSolved = (GridView)findViewById(R.id.lstViewAnswersSolved);
         
         tfGadugi = Typeface.createFromAsset(getAssets(), "fonts/gadugi.ttf");
@@ -143,11 +150,13 @@ public class MainActivity extends Activity {
         
         txtTimer.setTypeface(tfPrototype);
         txtScore.setTypeface(tfPrototype);
+        txtBonusTime.setTypeface(tfGadugi);
         
         mpCorrect = MediaPlayer.create(this, R.raw.correct);
         mpWrong = MediaPlayer.create(this, R.raw.wrong);
         mpMusic = MediaPlayer.create(this, R.raw.music);
         mpMusic.setLooping(true);
+        mpGoodjob = MediaPlayer.create(this, R.raw.goodjob);
         
 		SharedPreferences sp = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
 		int music = sp.getInt("music", 1);
@@ -172,9 +181,12 @@ public class MainActivity extends Activity {
         for(Answer ans : ssi.getCorrectAnswers()) {
         	ans.setSolved(false);
         	lstAnswersSolved.add(ans);
-			answersSolvedAdapter.notifyDataSetChanged();
+			
         }
-        	
+        
+        Collections.shuffle(lstAnswersSolved);
+        answersSolvedAdapter.notifyDataSetChanged();
+        
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
@@ -182,6 +194,7 @@ public class MainActivity extends Activity {
             	startedTimeOnCreate = true;
             }
         }, 100);
+        
     }
     
     public void createCountDownTimer() {
@@ -211,13 +224,13 @@ public class MainActivity extends Activity {
             public void onFinish() {
             	txtTimer.setText("00:00");
 
-            	showGameOverDialog(score);
+            	showGameOverDialog();
             	
             }
          }.start();
     }
 
-    public void showGameOverDialog(int score) {
+    public void showGameOverDialog() {
     	Dialog dialog = new Dialog(this);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.dialog_gameover);
@@ -310,7 +323,7 @@ public class MainActivity extends Activity {
 		
     }
     
-    public void showPauseDialog(int score) {
+    public void showPauseDialog() {
     	final Dialog dialog = new Dialog(this);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.dialog_pause);
@@ -405,14 +418,14 @@ public class MainActivity extends Activity {
                 public void onFinish() {
                 	txtTimer.setText("00:00");
                 	
-                	showGameOverDialog(score);
+                	showGameOverDialog();
                 }
              }.start();
     }
     
     public void createCountDownTimerOnNewPuzzle() {
     	
-		countdownTimer = new CountDownTimer(totalTimeLeft * 1000 + 30000, 250) {
+		countdownTimer = new CountDownTimer(totalTimeLeft * 1000 + 60000, 250) {
 
             public void onTick(long millisUntilFinished) {
 
@@ -435,7 +448,7 @@ public class MainActivity extends Activity {
             public void onFinish() {
             	txtTimer.setText("00:00");
             	
-            	showGameOverDialog(score);
+            	showGameOverDialog();
             }
          }.start();
 }
@@ -487,9 +500,8 @@ public class MainActivity extends Activity {
 		
 		countdownTimer.cancel();
 		isGamePaused = true;
-    	showPauseDialog(score);
+    	showPauseDialog();
 	}
-    
     
 	private void setOnClickListenersAndInitPictureList() {
         TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout);
@@ -648,15 +660,8 @@ public class MainActivity extends Activity {
                         			txtScore.setText("Score: " + score);
                         			
                         			if(ssi.getCorrectAnswers().size() == 0) {
-                        				Toast.makeText(activity, "Congrats! +30 seconds! Move on to next puzzle!", Toast.LENGTH_LONG).show();
-                        				
-                        				new Handler().postDelayed(new Runnable(){
-                            	            @Override
-                            	            public void run() {
-                                				refreshGame();
-                            	            	}
-                            	            }, 1000);
-                        				
+                        				popBonusTime();
+                        				refreshGame();
                         			}
                         			
                     			}else {
@@ -700,7 +705,6 @@ public class MainActivity extends Activity {
         }
     }
     
-    
     private void refreshGame() {
     	
     	countdownTimer.cancel();
@@ -722,8 +726,10 @@ public class MainActivity extends Activity {
         for(Answer ans : ssi.getCorrectAnswers()) {
         	ans.setSolved(false);
         	lstAnswersSolved.add(ans);
-			answersSolvedAdapter.notifyDataSetChanged();
         }
+        
+        Collections.shuffle(lstAnswersSolved);
+        answersSolvedAdapter.notifyDataSetChanged();
         
         unselectButtons();
     }
@@ -735,6 +741,24 @@ public class MainActivity extends Activity {
     	Random r = new Random();
     	int intvalue = r.nextInt(max - min + 1) + min;
     	return intvalue;
+    }
+    
+    public void popBonusTime() {
+    	SharedPreferences sp = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+		int music = sp.getInt("music", 1);
+		
+		if(music == 1) {
+			mpGoodjob.start();
+		}
+    	AlphaAnimation fadeIn = new AlphaAnimation(0.0f , 1.0f ) ; 
+        AlphaAnimation fadeOut = new AlphaAnimation( 1.0f , 0.0f ) ; 
+        txtBonusTime.startAnimation(fadeIn);
+        txtBonusTime.startAnimation(fadeOut);
+        fadeIn.setDuration(500);
+        fadeIn.setFillAfter(true);
+        fadeOut.setDuration(500);
+        fadeOut.setFillAfter(true);
+        fadeOut.setStartOffset(500+fadeIn.getStartOffset());
     }
     
 }

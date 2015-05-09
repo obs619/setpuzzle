@@ -48,6 +48,18 @@
 		        android:textAppearance="?android:attr/textAppearanceLarge"
 		        android:text="00:00" />
 	        
+	        <TextView
+		        android:id="@+id/txtBonusTime"
+		        android:layout_width="wrap_content"
+		        android:layout_height="match_parent"
+		        android:layout_alignParentLeft="true"
+		        android:layout_toLeftOf="@+id/btnPause"
+		        android:gravity="bottom|right"
+		        android:textColor="#Ca244b"
+		        android:visibility="invisible"
+		        android:textAppearance="?android:attr/textAppearanceLarge"
+		        android:text="+60" />
+	        
 	        <Button 
 	            android:id="@+id/btnPause"
 	            android:layout_width="wrap_content" 
@@ -93,8 +105,8 @@
         	    android:textColor="#FFFFFF"
         	    android:textAppearance="?android:attr/textAppearanceLarge"
         	    android:gravity="right"
-        	    android:paddingRight="8dp"
-        	    android:paddingTop="4dp"
+        	    android:paddingRight="12dp"
+        	    android:paddingTop="6dp"
         	    android:background="@drawable/orange_bone_orange"
         	    android:layout_margin="1dp"/>
         	<Button 
@@ -105,8 +117,8 @@
         	    android:textColor="#FFFFFF"
         	    android:textAppearance="?android:attr/textAppearanceLarge"
         	    android:gravity="right"
-        	    android:paddingRight="8dp"
-        	    android:paddingTop="4dp"
+        	    android:paddingRight="12dp"
+        	    android:paddingTop="6dp"
         	    android:background="@drawable/orange_bone_orange"
         	    android:layout_margin="1dp"/>
         	<Button 
@@ -117,8 +129,8 @@
         	    android:textColor="#FFFFFF"
         	    android:textAppearance="?android:attr/textAppearanceLarge"
         	    android:gravity="right"
-        	    android:paddingRight="8dp"
-        	    android:paddingTop="4dp"
+        	    android:paddingRight="12dp"
+        	    android:paddingTop="6dp"
         	    android:background="@drawable/orange_bone_orange"
         	    android:layout_margin="1dp"/> 
         </TableRow>
@@ -135,8 +147,8 @@
         	    android:textColor="#FFFFFF"
         	    android:textAppearance="?android:attr/textAppearanceLarge"
         	    android:gravity="right"
-        	    android:paddingRight="8dp"
-        	    android:paddingTop="4dp"
+        	    android:paddingRight="12dp"
+        	    android:paddingTop="6dp"
         	    android:background="@drawable/orange_bone_orange"
         	    android:layout_margin="1dp"/>
         	<Button 
@@ -147,8 +159,8 @@
         	    android:textColor="#FFFFFF"
         	    android:textAppearance="?android:attr/textAppearanceLarge"
         	    android:gravity="right"
-        	    android:paddingRight="8dp"
-        	    android:paddingTop="4dp"
+        	    android:paddingRight="12dp"
+        	    android:paddingTop="6dp"
         	    android:background="@drawable/orange_bone_orange"
         	    android:layout_margin="1dp"/>
         	<Button 
@@ -159,8 +171,8 @@
         	    android:textColor="#FFFFFF"
         	    android:textAppearance="?android:attr/textAppearanceLarge"
         	    android:gravity="right"
-        	    android:paddingRight="8dp"
-        	    android:paddingTop="4dp"
+        	    android:paddingRight="12dp"
+        	    android:paddingTop="6dp"
         	    android:background="@drawable/orange_bone_orange"
         	    android:layout_margin="1dp"/> 
         </TableRow>
@@ -177,8 +189,8 @@
         	    android:textColor="#FFFFFF"
         	    android:textAppearance="?android:attr/textAppearanceLarge"
         	    android:gravity="right"
-        	    android:paddingRight="8dp"
-        	    android:paddingTop="4dp"
+        	    android:paddingRight="12dp"
+        	    android:paddingTop="6dp"
         	    android:background="@drawable/orange_bone_orange"
         	    android:layout_margin="1dp"/>
         	<Button 
@@ -189,8 +201,8 @@
         	    android:textColor="#FFFFFF"
         	    android:textAppearance="?android:attr/textAppearanceLarge"
         	    android:gravity="right"
-        	    android:paddingRight="8dp"
-        	    android:paddingTop="4dp"
+        	    android:paddingRight="12dp"
+        	    android:paddingTop="6dp"
         	    android:background="@drawable/orange_bone_orange"
         	    android:layout_margin="1dp"/>
         	<Button 
@@ -201,8 +213,8 @@
         	    android:textColor="#FFFFFF"
         	    android:textAppearance="?android:attr/textAppearanceLarge"
         	    android:gravity="right"
-        	    android:paddingRight="8dp"
-        	    android:paddingTop="4dp"
+        	    android:paddingRight="12dp"
+        	    android:paddingTop="6dp"
         	    android:background="@drawable/orange_bone_orange"
         	    android:layout_margin="1dp"/> 
         </TableRow>
