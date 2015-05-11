@@ -114,6 +114,8 @@ public class MainActivity extends Activity {
 	
 	InterstitialAd interstitialAD;
 	
+	Dialog gameOverDialog;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -231,22 +233,22 @@ public class MainActivity extends Activity {
     }
 
     public void showGameOverDialog() {
-    	Dialog dialog = new Dialog(this);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(R.layout.dialog_gameover);
-		dialog.setCancelable(false);
+    	gameOverDialog = new Dialog(this);
+    	gameOverDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    	gameOverDialog.setContentView(R.layout.dialog_gameover);
+    	gameOverDialog.setCancelable(false);
 		
-		TextView txtGameOver = (TextView) dialog.findViewById(R.id.txtGameOver); 
-		TextView txtScore = (TextView) dialog.findViewById(R.id.Score); 
-		TextView txtBest = (TextView) dialog.findViewById(R.id.Best); 
+		TextView txtGameOver = (TextView) gameOverDialog.findViewById(R.id.txtGameOver); 
+		TextView txtScore = (TextView) gameOverDialog.findViewById(R.id.Score); 
+		TextView txtBest = (TextView) gameOverDialog.findViewById(R.id.Best); 
 		
 		txtGameOver.setTypeface(tfPrototype);
 		txtScore.setTypeface(tfGadugi);
 		txtBest.setTypeface(tfGadugi);
 		
 		
-		TextView txtActualScore = (TextView) dialog.findViewById(R.id.txtActualScore); 
-		TextView txtBestScore = (TextView) dialog.findViewById(R.id.txtBest);
+		TextView txtActualScore = (TextView) gameOverDialog.findViewById(R.id.txtActualScore); 
+		TextView txtBestScore = (TextView) gameOverDialog.findViewById(R.id.txtBest);
 
 		txtActualScore.setTypeface(tfGadugi);
 		txtBestScore.setTypeface(tfGadugi);
@@ -278,9 +280,9 @@ public class MainActivity extends Activity {
 		if(MenuActivity.mGoogleApiClient.isConnected())
 			Games.Leaderboards.submitScore(MenuActivity.mGoogleApiClient, getString(R.string.leaderboard_id), score);
 		
-		Button btnHome = (Button) dialog.findViewById(R.id.btnHome);
-		Button btnLeader = (Button) dialog.findViewById(R.id.btnLeader);
-		Button btnReplay = (Button) dialog.findViewById(R.id.btnPlayAgain);
+		Button btnHome = (Button) gameOverDialog.findViewById(R.id.btnHome);
+		Button btnLeader = (Button) gameOverDialog.findViewById(R.id.btnLeader);
+		Button btnReplay = (Button) gameOverDialog.findViewById(R.id.btnPlayAgain);
 		
 		
 		btnHome.setOnClickListener(new OnClickListener() {
@@ -312,7 +314,7 @@ public class MainActivity extends Activity {
 			}
 		});
 		
-		dialog.show();
+		gameOverDialog.show();
 		
 		int number = generateRandomNumber();
 		
@@ -431,6 +433,8 @@ public class MainActivity extends Activity {
 
             	if (Math.round((float)millisUntilFinished / 1000.0f) != totalTimeLeft)
                 {  
+            		if(gameOverDialog != null && gameOverDialog.isShowing())
+    					gameOverDialog.cancel();
             		totalTimeLeft = Math.round((float)millisUntilFinished / 1000.0f);
             		
             		String minute=""+(millisUntilFinished/1000)/60;
@@ -697,8 +701,8 @@ public class MainActivity extends Activity {
                     			selectedCounter = 0;
             	            }
             	        }, 100);
-            			
-            			
+            		}else if(selectedCounter > 3) {
+            			unselectButtons();
             		}
                 		
                 }
