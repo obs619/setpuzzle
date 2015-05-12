@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ToggleButton;
 
@@ -24,9 +24,9 @@ public class MenuActivity extends Activity
 	implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener{
 
 	LinearLayout layoutButtonPlay;
-	Button btnPlay;
-	Button btnHighScore;
-	Button btnHelp;
+	ImageButton btnPlay;
+	ImageButton btnHighScore;
+	ImageButton btnHelp;
 	ToggleButton btnMusic;
 	public static GoogleApiClient mGoogleApiClient;
 	
@@ -52,9 +52,9 @@ public class MenuActivity extends Activity
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 		
-		btnPlay = (Button) findViewById(R.id.btn_play);
-		btnHighScore = (Button) findViewById(R.id.btn_highscore);
-		btnHelp = (Button) findViewById(R.id.btn_help);
+		btnPlay = (ImageButton) findViewById(R.id.btn_play);
+		btnHighScore = (ImageButton) findViewById(R.id.btn_highscore);
+		btnHelp = (ImageButton) findViewById(R.id.btn_help);
 		btnMusic = (ToggleButton) findViewById(R.id.btn_music);
 		
 		mGoogleApiClient = new GoogleApiClient.Builder(this)

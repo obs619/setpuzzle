@@ -1,29 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#f4f4f4"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    
-    >
+    android:layout_height="match_parent">
     
     <RelativeLayout
-        android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    >
-    
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1280dp"
-            android:background="@drawable/howtoplay" />
-        
-	    <Button
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:background="@drawable/back_selector"
-	        android:layout_alignParentLeft="true"
-	        android:layout_alignParentTop="true"
-	        android:layout_margin="16dp"
-	        android:onClick="clickBack"/>
-        
+           android:layout_width="match_parent"
+           android:layout_height="0dp"
+           android:layout_weight="0.1"
+           android:layout_margin="16dp"
+           android:background="#f4f4f4">
+           
+           <Button
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:background="@drawable/go_home_selector"
+		        android:layout_alignParentLeft="true"
+		        android:layout_centerVertical="true"
+		        android:onClick="clickBack"/>
+       
+	        <TextView
+	            android:id="@+id/txtTutorial"
+	            android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_centerInParent="true"
+		        android:text="TUTORIAL"
+		        android:textSize="30sp"
+		        android:textAppearance="?android:attr/textAppearanceLarge"
+		        android:textColor="#39d8cf"/>
+            
     </RelativeLayout>
     
-</ScrollView>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#f4f4f4"
+        android:layout_weight="0.8"
+        />
+    
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/indicator"
+        android:padding="10dip"
+        android:layout_height="0dp"
+        android:layout_width="fill_parent"
+        android:layout_weight="0.1"
+        android:background="#f4f4f4"
+        />
+    
+    
+</LinearLayout>
