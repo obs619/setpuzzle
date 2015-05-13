@@ -25,12 +25,24 @@
     	    
     	</RelativeLayout>
     
-       	<LinearLayout 
-	        android:layout_width="match_parent"
+    	<LinearLayout
+    	    android:layout_width="match_parent"
 	    	android:layout_height="0dp"
 	    	android:layout_weight="0.55"
-	    	android:layout_margin="16dp"
-	        android:orientation="vertical">
+	    	android:orientation="horizontal">
+    	    
+    	    <View
+    	        android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="0.10"/>
+    	        
+    	    
+    	    <LinearLayout 
+		        android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="0.80"
+		    	android:layout_margin="8dp"
+		        android:orientation="vertical">
            
        	        	<LinearLayout 
        	        	    android:id="@+id/btn_2s"
@@ -70,14 +82,25 @@
 		            android:layout_weight="0.5"
 		            android:layout_width="match_parent"
 		            android:layout_height="0dp"
-		            android:layout_margin="8dp"
+		            android:layout_marginRight="8dp"
+		            android:layout_marginBottom="8dp"
 		            android:scaleType="fitCenter"	
 			        android:adjustViewBounds="true"
 			        android:background="#00000000"
 		            android:src="@drawable/play_selector"
 		            android:onClick="clickPlay" />
        
-       </LinearLayout>
+       		</LinearLayout>
+    	    
+    	    <View
+    	        android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="0.10"/>
+    	    
+    	    
+    	</LinearLayout>
+    	
+       	
        	
     <com.google.android.gms.ads.AdView
 	        android:id="@+id/adView"
