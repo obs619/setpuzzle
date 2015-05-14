@@ -25,6 +25,7 @@ import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -280,9 +281,9 @@ public class MainActivity extends Activity {
 		if(MenuActivity.mGoogleApiClient.isConnected())
 			Games.Leaderboards.submitScore(MenuActivity.mGoogleApiClient, getString(R.string.leaderboard_id), score);
 		
-		Button btnHome = (Button) gameOverDialog.findViewById(R.id.btnHome);
-		Button btnLeader = (Button) gameOverDialog.findViewById(R.id.btnLeader);
-		Button btnReplay = (Button) gameOverDialog.findViewById(R.id.btnPlayAgain);
+		ImageButton btnHome = (ImageButton) gameOverDialog.findViewById(R.id.btnHome);
+		ImageButton btnLeader = (ImageButton) gameOverDialog.findViewById(R.id.btnLeader);
+		ImageButton btnReplay = (ImageButton) gameOverDialog.findViewById(R.id.btnPlayAgain);
 		
 		
 		btnHome.setOnClickListener(new OnClickListener() {
@@ -318,7 +319,7 @@ public class MainActivity extends Activity {
 		
 		int number = generateRandomNumber();
 		
-		if(number >= 1 && number <= 30)
+		if(number >= 1 && number <= 60)
 			if (interstitialAD.isLoaded()) {
 				interstitialAD.show();
 	        }
@@ -354,9 +355,9 @@ public class MainActivity extends Activity {
 		txtBestScore.setText(bestScore + "");
 		
 		
-		Button btnHome = (Button) dialog.findViewById(R.id.btnHome);
-		Button btnResume = (Button) dialog.findViewById(R.id.btnResume);
-		Button btnReplay = (Button) dialog.findViewById(R.id.btnPlayAgain);
+		ImageButton btnHome = (ImageButton) dialog.findViewById(R.id.btnHome);
+		ImageButton btnResume = (ImageButton) dialog.findViewById(R.id.btnResume);
+		ImageButton btnReplay = (ImageButton) dialog.findViewById(R.id.btnPlayAgain);
 		
 		
 		btnHome.setOnClickListener(new OnClickListener() {
@@ -649,9 +650,9 @@ public class MainActivity extends Activity {
                     			
                     			if(ssi.isCorrectAnswer(a)) {
                     				SharedPreferences sp = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
-                    				int music = sp.getInt("music", 1);
+                    				int sound = sp.getInt("sound", 1);
                     				
-                    				if(music == 1) {
+                    				if(sound == 1) {
                         				mpCorrect.start();
                     				}
                     				score++;
@@ -670,9 +671,9 @@ public class MainActivity extends Activity {
                         			
                     			}else {
                     				SharedPreferences sp = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
-                    				int music = sp.getInt("music", 1);
+                    				int sound = sp.getInt("sound", 1);
                     				
-                    				if(music == 1) {
+                    				if(sound == 1) {
                         				mpWrong.start();
                     				}
                     				score--;
@@ -749,9 +750,9 @@ public class MainActivity extends Activity {
     
     public void popBonusTime() {
     	SharedPreferences sp = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
-		int music = sp.getInt("music", 1);
+		int sound = sp.getInt("sound", 1);
 		
-		if(music == 1) {
+		if(sound == 1) {
 			mpGoodjob.start();
 		}
     	AlphaAnimation fadeIn = new AlphaAnimation(0.0f , 1.0f ) ; 

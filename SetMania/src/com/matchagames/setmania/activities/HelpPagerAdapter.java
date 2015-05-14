@@ -26,12 +26,13 @@ public class HelpPagerAdapter extends FragmentStatePagerAdapter {
 			case 2: return TutorialFragment.newInstance(3);
 			case 3: return TutorialFragment.newInstance(4);
 			case 4: return TutorialFragment.newInstance(5);
+			case 5: return TutorialFragment.newInstance(6);
 			default: return null;
 		}
 	}
 
 	@Override
 	public int getCount() {
-		return 5;
+		return 6;
 	}
 }

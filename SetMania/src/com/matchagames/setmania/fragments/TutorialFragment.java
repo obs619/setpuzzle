@@ -44,6 +44,8 @@ public class TutorialFragment extends Fragment {
 			imgTutorial.setImageResource(R.drawable.tutorial_4);
 		else if(tutorialNumber == 5)
 			imgTutorial.setImageResource(R.drawable.tutorial_5);
+		else if(tutorialNumber == 6)
+			imgTutorial.setImageResource(R.drawable.tutorial_6);
 		
 		
 		return view;

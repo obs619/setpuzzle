@@ -11,18 +11,6 @@
 	    	android:layout_height="0dp"
 	    	android:layout_weight="0.45">
     	    
-    	    <ToggleButton
-	            android:id="@+id/btn_music"
-	            android:textOff=""
-	            android:textOn=""
-	            android:checked="true"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_margin="8dp"
-	            android:layout_alignParentRight="true"
-	            android:background="@drawable/music_selector"
-	            android:onClick="clickMusic" />
-    	    
     	</RelativeLayout>
     
     	<LinearLayout
@@ -41,12 +29,12 @@
 		        android:layout_width="0dp"
 		    	android:layout_height="match_parent"
 		    	android:layout_weight="0.80"
-		    	android:layout_margin="8dp"
+		    	android:weightSum="1"
 		        android:orientation="vertical">
            
        	        	<LinearLayout 
        	        	    android:id="@+id/btn_2s"
-       	        	    android:layout_weight="0.5"
+       	        	    android:layout_weight="0.45"
 				        android:layout_width="match_parent"
 				        android:layout_height="0dp" >
        	        	    
@@ -56,9 +44,10 @@
 					        android:layout_height="match_parent"
 					        android:onClick="clickHelp"
 					        android:layout_weight="0.5"
-					        android:layout_margin="8dp"
+					        android:layout_marginLeft="4dp"
+					        android:layout_marginRight="4dp"
 					        android:scaleType="fitCenter"
-					        android:background="#00000000"
+					        android:background="@null"
 					        android:adjustViewBounds="true"
 					        android:src="@drawable/help_selector" />
 			        
@@ -68,29 +57,70 @@
 					        android:layout_height="match_parent"
 					        android:onClick="clickHighScore"
 					        android:layout_weight="0.5"
-					        android:layout_margin="8dp"
+					        android:layout_marginLeft="4dp"
+					        android:layout_marginRight="4dp"
 					        android:scaleType="fitCenter"	
 					        android:adjustViewBounds="true"
-					        android:background="#00000000"
+					        android:background="@null"
 					        android:src="@drawable/highscore_selector"/>
        	        	    
        	        	    
        	        	</LinearLayout>
        	        
-       	        <ImageButton
-		            android:id="@+id/btn_play"
-		            android:layout_weight="0.5"
-		            android:layout_width="match_parent"
-		            android:layout_height="0dp"
-		            android:layout_marginRight="8dp"
-		            android:layout_marginLeft="8dp"
-		            android:layout_marginBottom="8dp"
-		            android:scaleType="fitCenter"	
-			        android:adjustViewBounds="true"
-			        android:background="#00000000"
-		            android:src="@drawable/play_selector"
-		            android:onClick="clickPlay" />
-       
+	       	        <ImageButton
+			            android:id="@+id/btn_play"
+			            android:layout_weight="0.45"
+			            android:layout_width="match_parent"
+			            android:layout_height="0dp"
+			            android:layout_marginRight="4dp"
+			            android:layout_marginLeft="4dp"
+			            android:layout_marginBottom="8dp"
+			            android:scaleType="fitCenter"	
+				        android:adjustViewBounds="true"
+				        android:background="@null"
+			            android:src="@drawable/play_selector"
+			            android:onClick="clickPlay" />
+	       
+	       	        <LinearLayout
+	       	            android:layout_width="wrap_content"
+	       	            android:layout_height="wrap_content"
+	       	            android:orientation="horizontal"
+	       	            android:layout_margin="4dp"
+	       	            android:layout_gravity="center">
+	       	            
+	       	            <ImageButton
+				            android:id="@+id/btn_music"
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:layout_gravity="center"
+				            android:src="@drawable/music_selector"
+				            android:background="@null"
+				            android:onClick="clickMusic" />
+	       	            
+	       	            <ImageButton
+				            android:id="@+id/btn_sound"
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:layout_gravity="center"
+				            android:layout_marginLeft="16dp"
+				            android:layout_marginRight="16dp"
+				            android:src="@drawable/sound_selector"
+				            android:background="@null"
+				            android:onClick="clickSound" />
+	       	            
+	       	            <ImageButton
+				            android:id="@+id/btn_rate"
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:layout_gravity="center"
+				            android:background="@null"
+				            android:src="@drawable/rate_selector"
+				            android:onClick="clickRate" />
+	       	            
+	       	            
+	       	        </LinearLayout>
+       	        
+       	        
        		</LinearLayout>
     	    
     	    <View
@@ -107,8 +137,8 @@
 	        android:id="@+id/adView"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        ads:adSize="SMART_BANNER"
 	        android:layout_gravity="bottom"
+	        ads:adSize="SMART_BANNER"
 	        ads:adUnitId="@string/banner_ad_unit_id">
     </com.google.android.gms.ads.AdView>
         

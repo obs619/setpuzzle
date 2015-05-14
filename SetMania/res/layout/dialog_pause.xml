@@ -98,7 +98,7 @@
         android:layout_centerInParent="true"
         android:layout_below="@+id/layoutScores" >
         
-        <Button 
+        <ImageButton 
             android:id="@+id/btnHome"
 	        android:layout_width="wrap_content"
 	    	android:layout_height="wrap_content"
@@ -107,10 +107,11 @@
 	    	android:layout_marginLeft="4dp"
 	    	android:layout_marginRight="4dp"
         	android:layout_marginBottom="16dp"
-            android:background="@drawable/go_home_selector"
+            android:src="@drawable/go_home_selector"
+            android:background="@null"
             />
         
-        <Button 
+        <ImageButton 
             android:id="@+id/btnResume"
 	        android:layout_width="wrap_content"
 	    	android:layout_height="wrap_content"
@@ -119,10 +120,11 @@
 	    	android:layout_marginLeft="4dp"
 	    	android:layout_marginRight="4dp"
         	android:layout_marginBottom="16dp"
-            android:background="@drawable/resume_selector"
+            android:src="@drawable/resume_selector"
+            android:background="@null"
             />
         
-        <Button 
+        <ImageButton 
             android:id="@+id/btnPlayAgain"
 	        android:layout_width="wrap_content"
 	    	android:layout_height="wrap_content"
@@ -131,7 +133,8 @@
 	    	android:layout_marginLeft="4dp"
 	    	android:layout_marginRight="4dp"
         	android:layout_marginBottom="16dp"
-            android:background="@drawable/go_replay_selector"
+            android:src="@drawable/go_replay_selector"
+            android:background="@null"
             />
         
         

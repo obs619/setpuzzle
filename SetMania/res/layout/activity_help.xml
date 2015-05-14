@@ -13,10 +13,11 @@
            android:layout_margin="16dp"
            android:background="#f4f4f4">
            
-           <Button
+           <ImageButton
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:background="@drawable/go_home_selector"
+		        android:src="@drawable/go_home_selector"
+		        android:background="@null"
 		        android:layout_alignParentLeft="true"
 		        android:layout_centerVertical="true"
 		        android:onClick="clickBack"/>

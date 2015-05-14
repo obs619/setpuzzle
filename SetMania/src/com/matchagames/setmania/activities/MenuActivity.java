@@ -3,13 +3,13 @@ package com.matchagames.setmania.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ToggleButton;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -27,7 +27,8 @@ public class MenuActivity extends Activity
 	ImageButton btnPlay;
 	ImageButton btnHighScore;
 	ImageButton btnHelp;
-	ToggleButton btnMusic;
+	ImageButton btnMusic;
+	ImageButton btnSound;
 	public static GoogleApiClient mGoogleApiClient;
 	
 	private static int RC_SIGN_IN = 9001;
@@ -55,7 +56,8 @@ public class MenuActivity extends Activity
 		btnPlay = (ImageButton) findViewById(R.id.btn_play);
 		btnHighScore = (ImageButton) findViewById(R.id.btn_highscore);
 		btnHelp = (ImageButton) findViewById(R.id.btn_help);
-		btnMusic = (ToggleButton) findViewById(R.id.btn_music);
+		btnMusic = (ImageButton) findViewById(R.id.btn_music);
+		btnSound = (ImageButton) findViewById(R.id.btn_sound);
 		
 		mGoogleApiClient = new GoogleApiClient.Builder(this)
         .addConnectionCallbacks(this)
@@ -68,11 +70,25 @@ public class MenuActivity extends Activity
 		int music = sp.getInt("music", 1);
 		
 		if(music == 1) {
-			btnMusic.setChecked(true);
+			btnMusic.setSelected(false);
 		}else {
-			btnMusic.setChecked(false);
+			btnMusic.setSelected(true);
 		}
 		
+		SharedPreferences sp1 = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+		int sound = sp1.getInt("sound", 1);
+		
+		if(sound == 1) {
+			btnSound.setSelected(false);
+		}else {
+			btnSound.setSelected(true);
+		}
+		
+	}
+	
+	public void clickRate(View v) {
+		String str ="https://play.google.com/store/apps/details?id=com.matchagames.setmania";
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(str)));
 	}
 	
 	public void clickPlay(View v) {
@@ -94,8 +110,8 @@ public class MenuActivity extends Activity
 	}
 	
 	public void clickMusic(View v) {
-		boolean on = ((ToggleButton) v).isChecked();
-	    if (on) {
+		btnMusic.setSelected(!((ImageButton)v).isSelected());
+	    if (!btnMusic.isSelected()) {
 	    	SharedPreferences sp2 = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
 			SharedPreferences.Editor editor = sp2.edit();
 			editor.putInt("music", 1);
@@ -104,6 +120,21 @@ public class MenuActivity extends Activity
 	    	SharedPreferences sp2 = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
 			SharedPreferences.Editor editor = sp2.edit();
 			editor.putInt("music", 0);
+			editor.commit();
+	   }
+	}
+	
+	public void clickSound(View v) {
+		btnSound.setSelected(!((ImageButton)v).isSelected());
+	    if (!btnSound.isSelected()) {
+	    	SharedPreferences sp2 = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+			SharedPreferences.Editor editor = sp2.edit();
+			editor.putInt("sound", 1);
+			editor.commit();
+	    } else {
+	    	SharedPreferences sp2 = getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+			SharedPreferences.Editor editor = sp2.edit();
+			editor.putInt("sound", 0);
 			editor.commit();
 	   }
 	}
