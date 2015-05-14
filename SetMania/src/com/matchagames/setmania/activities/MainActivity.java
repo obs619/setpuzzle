@@ -34,8 +34,12 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.games.Games;
 import com.matchagames.setmania.R;
+import com.matchagames.setmania.activities.SetMania.TrackerName;
 import com.matchagames.setmania.models.Answer;
 import com.matchagames.setmania.models.Picture;
 import com.matchagames.setmania.service.SetServiceImpl;
@@ -198,7 +202,27 @@ public class MainActivity extends Activity {
             }
         }, 100);
         
+        Tracker t = ((SetMania) getApplication()).getTracker(TrackerName.APP_TRACKER);
+		
+		t.setScreenName("MainActivity");		
+		t.send(new HitBuilders.AppViewBuilder().build());
+		
+		t.enableAdvertisingIdCollection(true);
+        
     }
+    
+    @Override
+	protected void onStart() {
+	    super.onStart();
+	    GoogleAnalytics.getInstance(this).reportActivityStart(this);
+
+	}
+
+	@Override
+	protected void onStop() {
+	    super.onStop();
+	    GoogleAnalytics.getInstance(this).reportActivityStop(this);
+	}
     
     public void createCountDownTimer() {
     	
@@ -501,11 +525,14 @@ public class MainActivity extends Activity {
 	}
 
     public void clickPause(View v) {
-		tableLayout.setVisibility(View.INVISIBLE);
+    	if(!isGamePaused) {
+    		tableLayout.setVisibility(View.INVISIBLE);
+    		
+    		countdownTimer.cancel();
+    		isGamePaused = true;
+        	showPauseDialog();
+    	}
 		
-		countdownTimer.cancel();
-		isGamePaused = true;
-    	showPauseDialog();
 	}
     
 	private void setOnClickListenersAndInitPictureList() {

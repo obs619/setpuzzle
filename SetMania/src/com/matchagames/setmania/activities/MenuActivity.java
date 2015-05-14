@@ -13,11 +13,15 @@ import android.widget.LinearLayout;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.BaseGameUtils;
 import com.matchagames.setmania.R;
+import com.matchagames.setmania.activities.SetMania.TrackerName;
 
 
 public class MenuActivity extends Activity 
@@ -84,6 +88,12 @@ public class MenuActivity extends Activity
 			btnSound.setSelected(true);
 		}
 		
+		Tracker t = ((SetMania) getApplication()).getTracker(TrackerName.APP_TRACKER);
+			
+		t.setScreenName("MenuActivity");		
+		t.send(new HitBuilders.AppViewBuilder().build());
+		
+		t.enableAdvertisingIdCollection(true);
 	}
 	
 	public void clickRate(View v) {
@@ -183,12 +193,16 @@ public class MenuActivity extends Activity
 	protected void onStart() {
 	    super.onStart();
 	    mGoogleApiClient.connect();
+	    GoogleAnalytics.getInstance(this).reportActivityStart(this);
+
 	}
 
 	@Override
 	protected void onStop() {
 	    super.onStop();
 	//    mGoogleApiClient.disconnect();
+	    GoogleAnalytics.getInstance(this).reportActivityStop(this);
+
 	}
 	
 	
