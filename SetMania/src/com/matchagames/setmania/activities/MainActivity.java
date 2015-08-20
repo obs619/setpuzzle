@@ -343,7 +343,7 @@ public class MainActivity extends Activity {
 		
 		int number = generateRandomNumber();
 		
-		if(number >= 1 && number <= 60)
+		if(number >= 1 && number <= 100)
 			if (interstitialAD.isLoaded()) {
 				interstitialAD.show();
 	        }
@@ -764,6 +764,52 @@ public class MainActivity extends Activity {
         answersSolvedAdapter.notifyDataSetChanged();
         
         unselectButtons();
+        
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run() {
+            	if(ssi.getCorrectAnswers().size() == 0) {
+                	refreshGameAgain();
+                }
+            }
+        }, 500);
+        
+    }
+    
+    public void refreshGameAgain() {
+    	
+    	pictures = new Picture[9];
+    	
+        shuffleIntArray(picturesList);
+        
+        setOnClickListenersAndInitPictureList();
+        ssi.initAllPossibleSets(pictures);
+        
+        selectedCounter = 0;
+        answers = new int[3];
+        
+        lstAnswersSolved.clear();
+		answersSolvedAdapter.notifyDataSetChanged();
+         
+        for(Answer ans : ssi.getCorrectAnswers()) {
+        	ans.setSolved(false);
+        	lstAnswersSolved.add(ans);
+        }
+        
+        Collections.shuffle(lstAnswersSolved);
+        answersSolvedAdapter.notifyDataSetChanged();
+        
+        unselectButtons();
+    	
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run() {
+            	if(ssi.getCorrectAnswers().size() == 0) {
+                	refreshGameAgain();
+                }
+            }
+        }, 500);
+        
     }
     
     public int generateRandomNumber(){
